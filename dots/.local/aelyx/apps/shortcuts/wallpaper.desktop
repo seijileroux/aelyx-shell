@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=?Wallpaper
+Comment=Change your wallpaper
+Exec=qs ipc call background changeBackground
+Icon=/usr/share/icons/Papirus/48x48/apps/livewallpaper.svg
+Terminal=false
+Type=Application
+Categories=Utility;
+StartupNotify=false

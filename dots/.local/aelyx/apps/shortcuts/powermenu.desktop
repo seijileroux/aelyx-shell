@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=?Powermenu
+Comment=Open system powermenu
+Exec=qs ipc call powermenu toggleVisible
+Icon=/usr/share/icons/Papirus/48x48/apps/preferences-system-power-management.svg
+Terminal=false
+Type=Application
+Categories=Utility;
+StartupNotify=false

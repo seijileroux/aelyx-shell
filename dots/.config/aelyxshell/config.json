@@ -1,0 +1,39 @@
+{
+    "appearance": {
+        "defaultAppIcon": "file:///home/zepyx/.local/aelyx/apps/icons/preferences.svg",
+        "iconTheme": "Papirus",
+        "theme": "dark"
+    },
+    "background": {
+        "borderEnabled": false,
+        "clockTimeFormat": "hh:mm",
+        "clockX": 1572,
+        "clockY": 305,
+        "showClock": true,
+        "wallpaperPath": "file:///home/zepyx/Pictures/Wallpapers/nature.jpg"
+    },
+    "bar": {
+        "enabled": true,
+        "implicitHeight": 50,
+        "launcherToggleSymbol": "motion_play",
+        "modules": {
+            "clock": {
+                "format": "hh:mm | dd/MM"
+            },
+            "workspaces": {
+                "largeWorkspacesIcon": false,
+                "showNumbers": true,
+                "visibleWorkspaces": 8
+            }
+        },
+        "position": 1,
+        "radius": 14,
+        "style": 2
+    },
+    "controlCenter": {
+        "radius": 17
+    },
+    "global": {
+        "colorScheme": "scheme-rainbow"
+    }
+}

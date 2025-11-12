@@ -1,0 +1,29 @@
+[config.wallpaper]
+command = "swww"
+arguments = ["img", "--transition-type", "any", "--transition-fps", "60"]
+set = false
+
+[templates.aelyxshell]
+input_path = '~/.config/matugen/templates/colors.json'
+output_path = '~/.config/aelyxshell/colors.json'
+post_hook = 'qs ipc call clock changePosition'
+
+[templates.hyprland]
+input_path = '~/.config/matugen/templates/hyprland-colors.conf'
+output_path = '~/.config/hypr/conf/colors.conf'
+post_hook = 'hyprctl reload'
+
+[templates.cava]
+input_path = '~/.config/matugen/templates/matugen-cava'
+output_path = '~/.config/cava/config'
+post_hook = "pkill -USR1 cava"
+
+[templates.pywalfox]
+input_path = '~/.config/matugen/templates/pywal.json'
+output_path = '~/.cache/wal/colors.json'
+post_hook = 'pywalfox update'
+
+[templates.kitty]
+input_path = '~/.config/matugen/templates/kitty-colors.conf'
+output_path = '~/.config/kitty/colors.conf'
+post_hook = "kill -SIGUSR1 $(pidof kitty)"
