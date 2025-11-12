@@ -1,6 +1,6 @@
 <div align="center">
 
-#  Aelyx-Shell 
+#  aelyx-shell 
 
 A compact, performance-oriented dotfiles collection implemented with QuickShell and Hyprland.
 
