@@ -53,28 +53,28 @@ PanelWindow {
 
     mask: Region {
         item: overlay
-        intersection: SessionState.powerMenu.isOpen ? Intersection.Combine : Intersection.Xor
+        intersection: SessionState.powerMenuOpen ? Intersection.Combine : Intersection.Xor
     }
 
     Rectangle {
         id: overlay
         anchors.fill: parent
         color: "transparent"
-        opacity: SessionState.powerMenu.isOpen ? 1 : 0
+        opacity: SessionState.powerMenuOpen ? 1 : 0
         Behavior on opacity { Anim {} }
 
         MouseArea {
             anchors.fill: parent
-            enabled: SessionState.powerMenu.isOpen
-            onClicked: SessionState.powerMenu.isOpen = false
+            enabled: SessionState.powerMenuOpen
+            onClicked: SessionState.powerMenuOpen = false
         }
     }
 
     Item {
         id: keyCatcher
         anchors.fill: parent
-        focus: SessionState.powerMenu.isOpen
-        Keys.onEscapePressed: SessionState.powerMenu.isOpen = false
+        focus: SessionState.powerMenuOpen
+        Keys.onEscapePressed: SessionState.powerMenuOpen = false
     }
 
     component PowerButton: Item {
@@ -114,7 +114,7 @@ PanelWindow {
             onClicked: {
                 if (command !== "")
                     Quickshell.execDetached([command])
-                SessionState.powermenu.isOpen = false
+                SessionState.powerMenuOpen = false
             }
         }
 
@@ -137,7 +137,7 @@ PanelWindow {
         color: Appearance.m3colors.m3background
         cornerRadius: Appearance.rounding.verylarge
         implicitWidth: powerMenu.powerMenuWidth
-        implicitHeight: SessionState.powerMenu.isOpen ? powerMenu.powerMenuHeight : 0
+        implicitHeight: SessionState.powerMenuOpen ? powerMenu.powerMenuHeight : 0
 
         Behavior on implicitHeight { Anim {} }
 
@@ -168,7 +168,7 @@ PanelWindow {
         ]
 
         content: Row {
-            opacity: SessionState.powerMenu.isOpen ? 1 : 0
+            opacity: SessionState.powerMenuOpen ? 1 : 0
             Behavior on opacity { Anim {} }
             id: buttonRow
             anchors.centerIn: parent
@@ -207,8 +207,8 @@ PanelWindow {
 
     // --- Toggle logic ---
     function toggleMenu() {
-        const newState = !SessionState.powerMenu.isOpen
-        SessionState.powerMenu.isOpen = newState
+        const newState = !SessionState.powerMenuOpen
+        SessionState.powerMenuOpen = newState
         if (newState)
             powerMenu.forceActiveFocus()
         else

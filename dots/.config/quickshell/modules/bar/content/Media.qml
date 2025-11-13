@@ -24,8 +24,8 @@ BarModule {
         MouseArea {
             anchors.fill: parent 
             onClicked: {
-                SessionState.mediaPlayer.isOpen = !SessionState.mediaPlayer.isOpen
-                Qt.callLater(() => SessionState.mediaPlayer.isOpen = SessionState.mediaPlayer.isOpen)
+                SessionState.mediaPlayerOpen = !SessionState.mediaPlayerOpen
+                Qt.callLater(() => SessionState.mediaPlayerOpen = SessionState.mediaPlayerOpen)
             }
         }
 

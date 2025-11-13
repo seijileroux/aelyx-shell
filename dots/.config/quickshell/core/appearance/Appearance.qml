@@ -1,4 +1,5 @@
 import qs.core.config
+import qs.common.functions
 import QtQuick
 import Quickshell
 pragma Singleton
@@ -7,12 +8,37 @@ pragma ComponentBehavior: Bound
 Singleton {
     id: root
     property QtObject m3colors
+    property QtObject colors
     property QtObject rounding
     property QtObject font
     property QtObject margin
     property QtObject moduleLayouts
     property QtObject animation
     property string syntaxHighlightingTheme
+
+    colors: QtObject {
+        property color colSubtext: m3colors.m3outline
+        property color colLayer0: m3colors.m3background
+        property color colLayer0Border: ColorUtils.mix(root.m3colors.m3outlineVariant, colLayer0, 0.4)
+        property color colLayer1: m3colors.m3surfaceContainerLow
+        property color colOnLayer1: m3colors.m3onSurfaceVariant
+        property color colOnLayer1Inactive: ColorUtils.mix(colOnLayer1, colLayer1, 0.45)
+        property color colLayer1Hover: ColorUtils.mix(colLayer1, colOnLayer1, 0.92)
+        property color colLayer1Active: ColorUtils.mix(colLayer1, colOnLayer1, 0.85)
+        property color colLayer2: m3colors.m3surfaceContainer
+        property color colOnLayer2: m3colors.m3onSurface
+        property color colLayer2Hover: ColorUtils.mix(colLayer2, colOnLayer2, 0.90)
+        property color colLayer2Active: ColorUtils.mix(colLayer2, colOnLayer2, 0.80)
+        property color colPrimary: m3colors.m3primary
+        property color colOnPrimary: m3colors.m3onPrimary
+        property color colSecondary: m3colors.m3secondary
+        property color colSecondaryContainer: m3colors.m3secondaryContainer
+        property color colOnSecondaryContainer: m3colors.m3onSecondaryContainer
+        property color colTooltip: m3colors.m3inverseSurface
+        property color colOnTooltip: m3colors.m3inverseOnSurface
+        property color colShadow: ColorUtils.transparentize(m3colors.m3shadow, 0.7)
+        property color colOutline: m3colors.m3outline
+    }
 
     m3colors: QtObject {
         readonly property bool darkmode: Config.options.appearance.theme === "dark"
@@ -100,6 +126,7 @@ Singleton {
         property color term15: "#221A1A"
     }
 
+
     margin: QtObject {
         property int supertiny: 2
         property int tinier: 3
@@ -141,6 +168,45 @@ Singleton {
             readonly property real expressiveDefaultSpatialDuration: 500
             readonly property real expressiveSlowSpatialDuration: 650
             readonly property real expressiveEffectsDuration: 200
+        }
+
+        property QtObject elementMove: QtObject {
+            property int duration: animation.curves.expressiveDefaultSpatialDuration
+            property int type: Easing.BezierSpline
+            property list<real> bezierCurve: animation.curves.expressiveDefaultSpatial
+            property Component numberAnimation: Component {
+                NumberAnimation {
+                    duration: root.animation.elementMove.duration
+                    easing.type: root.animation.elementMove.type
+                    easing.bezierCurve: root.animation.elementMove.bezierCurve
+                }
+            }
+        }
+
+        property QtObject elementMoveEnter: QtObject {
+            property int duration: 400
+            property int type: Easing.BezierSpline
+            property list<real> bezierCurve: animation.curves.emphasizedDecel
+            property Component numberAnimation: Component {
+                NumberAnimation {
+                    duration: root.animation.elementMoveEnter.duration
+                    easing.type: root.animation.elementMoveEnter.type
+                    easing.bezierCurve: root.animation.elementMoveEnter.bezierCurve
+                }
+            }
+        }
+
+        property QtObject elementMoveFast: QtObject {
+            property int duration: animation.curves.expressiveEffectsDuration
+            property int type: Easing.BezierSpline
+            property list<real> bezierCurve: animation.curves.expressiveEffects
+            property Component numberAnimation: Component {
+                NumberAnimation {
+                    duration: root.animation.elementMoveFast.duration
+                    easing.type: root.animation.elementMoveFast.type
+                    easing.bezierCurve: root.animation.elementMoveFast.bezierCurve
+                }
+            }
         }
 
     }

@@ -13,7 +13,7 @@ import Qt5Compat.GraphicalEffects
 PanelWindow {
     id: mediaPlayer
     WlrLayershell.layer: WlrLayer.Top
-    visible: Config.ready
+    visible: Config.ready && !SessionState.controlCenterOpen
 
     color: "transparent"
     focusable: true
@@ -53,28 +53,28 @@ PanelWindow {
 
     mask: Region {
         item: overlay
-        intersection: SessionState.mediaPlayer.isOpen ? Intersection.Combine : Intersection.Xor
+        intersection: SessionState.mediaPlayerOpen ? Intersection.Combine : Intersection.Xor
     }
 
     Rectangle {
         id: overlay
         anchors.fill: parent
         color: "transparent"
-        opacity: SessionState.mediaPlayer.isOpen ? 1 : 0
+        opacity: SessionState.mediaPlayerOpen ? 1 : 0
         Behavior on opacity { Anim {} }
 
         MouseArea {
             anchors.fill: parent
-            enabled: SessionState.mediaPlayer.isOpen
-            onClicked: SessionState.mediaPlayer.isOpen = false
+            enabled: SessionState.mediaPlayerOpen
+            onClicked: SessionState.mediaPlayerOpen = false
         }
     }
 
     Item {
         id: keyCatcher
         anchors.fill: parent
-        focus: SessionState.mediaPlayer.isOpen
-        Keys.onEscapePressed: SessionState.mediaPlayer.isOpen = false
+        focus: SessionState.mediaPlayerOpen
+        Keys.onEscapePressed: SessionState.mediaPlayerOpen = false
     }
 
     MergedEdgeRect {
@@ -83,7 +83,7 @@ PanelWindow {
         color: Appearance.m3colors.m3background
         cornerRadius: Appearance.rounding.verylarge
         implicitWidth: mediaPlayer.mediaPlayerWidth
-        implicitHeight: SessionState.mediaPlayer.isOpen ? mediaPlayer.mediaPlayerHeight : 0
+        implicitHeight: SessionState.mediaPlayerOpen ? mediaPlayer.mediaPlayerHeight : 0
 
         Behavior on implicitHeight { Anim {} }
 
@@ -125,7 +125,7 @@ PanelWindow {
                 color: Appearance.m3colors.m3paddingContainer
                 radius: Appearance.rounding.small
                 anchors.verticalCenter: parent.verticalCenter
-                opacity: SessionState.mediaPlayer.isOpen ? 1 : 0
+                opacity: SessionState.mediaPlayerOpen ? 1 : 0
                 Behavior on opacity { Anim {} }
                 layer.enabled: true
                 layer.effect: OpacityMask {
@@ -277,8 +277,8 @@ PanelWindow {
 
     // --- Toggle logic ---
     function togglemediaPlayer() {
-        const newState = !SessionState.mediaPlayer.isOpen
-        SessionState.mediaPlayer.isOpen = newState
+        const newState = !SessionState.mediaPlayerOpen
+        SessionState.mediaPlayerOpen = newState
         if (newState)
             mediaPlayer.forceActiveFocus()
         else

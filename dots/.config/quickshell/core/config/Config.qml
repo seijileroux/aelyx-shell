@@ -122,6 +122,18 @@ Singleton {
             property JsonObject controlCenter: JsonObject {
                 property int radius: Appearance.rounding.normal
             }
+            
+            property QtObject overview: QtObject {
+                property int rows: 2
+                property int columns: 5
+                property real scale: 0.16
+                property bool enable: true
+            }
+            
+            property QtObject hacks: QtObject {
+                property int arbitraryRaceConditionDelay: 150
+            }
+
         }
     }
 }

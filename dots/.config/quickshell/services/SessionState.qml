@@ -4,19 +4,12 @@ pragma Singleton
 pragma ComponentBehavior: Bound
 import Quickshell
 
-Singleton {
+Item {
     id: root
 
-    property QtObject launcher: QtObject {
-        property bool isOpen: false
-    }
-    property QtObject powerMenu: QtObject {
-        property bool isOpen: false
-    }
-    property QtObject controlCenter: QtObject {
-        property bool isOpen: false
-    }
-    property QtObject mediaPlayer: QtObject {
-        property bool isOpen: false
-    }
+    property bool launcherOpen: false
+    property bool powerMenuOpen: false
+    property bool controlCenterOpen: false
+    property bool mediaPlayerOpen: false
+    property bool overviewOpen: false
 }

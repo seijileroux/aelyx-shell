@@ -12,7 +12,7 @@ import Quickshell.Io
 PanelWindow {
     id: launcher
     WlrLayershell.layer: WlrLayer.Top
-    WlrLayershell.keyboardFocus: SessionState.launcher.isOpen
+    WlrLayershell.keyboardFocus: SessionState.launcherOpen
     visible: Config.ready
 
     color: "transparent"
@@ -46,7 +46,7 @@ PanelWindow {
 
     mask: Region {
         item: overlay
-        intersection: SessionState.launcher.isOpen ? Intersection.Combine : Intersection.Xor
+        intersection: SessionState.launcherOpen ? Intersection.Combine : Intersection.Xor
     }
 
     Rectangle {
@@ -58,10 +58,10 @@ PanelWindow {
 
         MouseArea {
             anchors.fill: parent
-            enabled: SessionState.launcher.isOpen
+            enabled: SessionState.launcherOpen
             onClicked: {
                 container.searchQuery = ""
-                SessionState.launcher.isOpen = false
+                SessionState.launcherOpen = false
             }
         }
     }
@@ -71,9 +71,9 @@ PanelWindow {
         visible: implicitHeight > 0
         color: Appearance.m3colors.m3background
         cornerRadius: Appearance.rounding.verylarge
-        implicitWidth: SessionState.launcher.isOpen ? launcher.launcherWidth : 0
-        implicitHeight: SessionState.launcher.isOpen ? launcher.launcherHeight : 0
-        opacity: SessionState.launcher.isOpen ? 1 : 0
+        implicitWidth: SessionState.launcherOpen ? launcher.launcherWidth : 0
+        implicitHeight: SessionState.launcherOpen ? launcher.launcherHeight : 0
+        opacity: SessionState.launcherOpen ? 1 : 0
 
         Behavior on implicitHeight { Anim {} }
         Behavior on implicitWidth { Anim {} }
@@ -94,7 +94,7 @@ PanelWindow {
 
 
     function toggleLauncher() {
-        SessionState.launcher.isOpen = !SessionState.launcher.isOpen
+        SessionState.launcherOpen = !SessionState.launcherOpen
     }
 
     IpcHandler {

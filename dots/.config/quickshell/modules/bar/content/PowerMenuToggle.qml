@@ -27,7 +27,7 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: SessionState.powerMenu.isOpen = !SessionState.powerMenu.isOpen
+        onClicked: SessionState.powerMenuOpen = !SessionState.powerMenuOpen
     }
 
 }

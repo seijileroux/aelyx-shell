@@ -19,7 +19,7 @@ BarModule {
 
     StyledRect {
         id: bgRect
-        color: SessionState.controlCenter.isOpen ? Appearance.m3colors.m3onSecondary : Appearance.m3colors.m3paddingContainer 
+        color: Appearance.m3colors.m3paddingContainer
         radius: Appearance.rounding.large
 
         implicitWidth: contentRow.implicitWidth + Appearance.margin.large - 5
@@ -47,7 +47,9 @@ BarModule {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: SessionState.controlCenter.isOpen = !SessionState.controlCenter.isOpen
+            onClicked: {
+                SessionState.controlCenterOpen = !SessionState.controlCenterOpen
+            }
         }
     }
 

@@ -12,7 +12,7 @@ import "."
 Item {
     id: content
     anchors.fill: parent
-    opacity: SessionState.launcher.isOpen ? 1 : 0
+    opacity: SessionState.launcherOpen ? 1 : 0
     Behavior on opacity {
         NumberAnimation {
             duration: 400
@@ -99,7 +99,7 @@ Item {
     }
 
     function closeLauncher() {
-        SessionState.launcher.isOpen = false
+        SessionState.launcherOpen = false
     }
 
     function resetSearch() {
@@ -113,7 +113,7 @@ Item {
     Component.onCompleted: reloadApps()
 
     onVisibleChanged: {
-        if (SessionState.launcher.isOpen) {
+        if (SessionState.launcherOpen) {
             Qt.callLater(() => {
                 resetSearch()
                 searchField.forceActiveFocus()
