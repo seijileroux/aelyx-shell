@@ -14,6 +14,8 @@ packages=(
     "grim"
     "slurp"
     "nvim"
+    "nmcli"
+    "nmtui"
     "ttf-material-symbols-variable-git"
     "nautilus"
     "quickshell"
