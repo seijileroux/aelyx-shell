@@ -32,7 +32,7 @@ Scope {
         id: genThemeColors
         command: [
             "bash", "-c",
-            "~/.config/quickshell/scripts/background/gencolors.sh " +
+            "~/.config/quickshell/bin/background/gencolors.sh " +
             Config.options.background.wallpaperPath + " " +
             Config.options.global.colorScheme + " " +
             Config.options.appearance.theme

@@ -57,8 +57,8 @@ Scope {
                     spacing: 4
 
                     LauncherToggle{}
-                    UserHostname{}
                     Workspaces{}
+                    UserHostname{}
                     Network{}
                     PowerMenuToggle{}
                 }

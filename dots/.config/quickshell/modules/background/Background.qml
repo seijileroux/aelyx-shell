@@ -32,7 +32,7 @@ Scope {
                 id: wallpaperProc
                 command: [
                     "bash", "-c",
-                    "~/.config/quickshell/scripts/background/changebg.sh"
+                    "~/.config/quickshell/bin/background/changebg.sh"
                 ]
 
                 stdout: StdioCollector {
@@ -51,7 +51,7 @@ Scope {
                 id: genColorsProc
                 command: [
                     "bash", "-c",
-                    "~/.config/quickshell/scripts/background/gencolors.sh " +
+                    "~/.config/quickshell/bin/background/gencolors.sh " +
                     Config.options.background.wallpaperPath + " " +
                     Config.options.global.colorScheme + " " +
                     Config.options.appearance.theme
