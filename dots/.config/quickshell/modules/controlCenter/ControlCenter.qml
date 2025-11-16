@@ -124,7 +124,8 @@ PanelWindow {
                 anchors.right: parent.right
                 anchors.leftMargin: Appearance.margin.tiny
                 anchors.rightMargin: Appearance.margin.small
-                anchors.topMargin: Appearance.margin.large
+                anchors.topMargin: Config.options.bar.position === 1 ? Appearance.margin.large : 0
+                anchors.bottomMargin: Config.options.bar.position === 2 ? Appearance.margin.large : 0
                 anchors.margins: Appearance.margin.large
                 spacing: Appearance.margin.large
 
@@ -136,13 +137,13 @@ PanelWindow {
 
                     ColumnLayout {
                         Layout.fillWidth: true
-                        Layout.leftMargin: 20
+                        Layout.leftMargin: 10
                         Layout.alignment: Qt.AlignVCenter
                         spacing: 2
 
                         StyledText { 
                             text: SystemDetails.username 
-                            font.pixelSize: Appearance.font.size.wildass - 10
+                            font.pixelSize: Appearance.font.size.wildass - 6
                         }
 
                         RowLayout {
@@ -160,25 +161,52 @@ PanelWindow {
                         }
                     }
 
-                    StyledRect {
-                        id: settingsbtncontainer
-                        color: Appearance.m3colors.m3paddingContainer
-                        radius: Appearance.rounding.normal
-                        implicitHeight: settingsButton.height + Appearance.margin.tiny
-                        implicitWidth: settingsButton.width + Appearance.margin.small
-                        Layout.alignment: Qt.AlignRight | Qt.AlignTop
-                        Layout.topMargin: 10
-                        Layout.leftMargin: 15
+                    Column {
+                        spacing: 6
+                        Layout.leftMargin: 25
+                        Layout.alignment: Qt.AlignVCenter 
+                        StyledRect {
+                            id: powerbtncontainer
+                            color: Appearance.m3colors.m3paddingContainer
+                            radius: Appearance.rounding.normal
+                            implicitHeight: settingsButton.height + Appearance.margin.tiny
+                            implicitWidth: settingsButton.width + Appearance.margin.small
+                            Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                            Layout.topMargin: 10
+                            Layout.leftMargin: 15
 
-                        MaterialSymbolButton {
-                            id: settingsButton
-                            icon: "settings"
-                            anchors.centerIn: parent
-                            iconSize: Appearance.font.size.wildass - 10
+                            MaterialSymbolButton {
+                                id: powerButton
+                                icon: "power_settings_new"
+                                anchors.centerIn: parent
+                                iconSize: Appearance.font.size.wildass - 10
 
-                            onButtonClicked: {
-                                SessionState.controlCenterOpen = false
-                                SessionState.visible_settingsMenu = true
+                                onButtonClicked: {
+                                    SessionState.controlCenterOpen = false
+                                    SessionState.powerMenuOpen = true
+                                }
+                            }
+                        }
+                        StyledRect {
+                            id: settingsbtncontainer
+                            color: Appearance.m3colors.m3paddingContainer
+                            radius: Appearance.rounding.normal
+                            implicitHeight: settingsButton.height + Appearance.margin.tiny
+                            implicitWidth: settingsButton.width + Appearance.margin.small
+                            Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                            Layout.topMargin: 10
+                            Layout.leftMargin: 15
+
+                            MaterialSymbolButton {
+                                id: settingsButton
+                                icon: "settings"
+                                anchors.centerIn: parent
+                                iconSize: Appearance.font.size.wildass - 10
+
+                                onButtonClicked: {
+                                    SessionState.controlCenterOpen = false
+                                    SessionState.visible_settingsMenu = true
+                                }
                             }
                         }
                     }

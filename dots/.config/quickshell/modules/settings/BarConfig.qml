@@ -10,7 +10,7 @@ import QtQuick.Layouts
 
 BaseMenu {
     title: "Bar"
-    description: "Adjust how the Bar panel behaves."
+    description: "Adjust how the bar behaves."
 
     BaseCard {
         StyledText {
@@ -56,41 +56,28 @@ BaseMenu {
             }
         }
 
-        SwitchOption {
+        StyledSwitchOption {
             title: "Visible";
             description: "Change the bar's visiblity."
             prefField: "bar.enabled"
         }
 
-        SwitchOption {
+        StyledSwitchOption {
             title: "Large Workspace Icons";
             description: "Whether to keep the workspace icons large or not\nIf disabled, the bar will use small icons."
             prefField: "bar.modules.workspaces.largeWorkspacesIcon"
         }
 
-        SwitchOption {
+        StyledSwitchOption {
             title: "Workspace Numbers"
             description: "Whether to keep numbers on workspace icons or not.\nNote - This will only work with large workspace icons."
             prefField: "bar.modules.workspaces.showNumbers"
         }
-    }
 
-    component SwitchOption: RowLayout {
-        id: main
-        property string title: "Title"
-        property string description: "Description"
-        property string prefField: ''
-
-        ColumnLayout {
-            StyledText { text: main.title; font.pixelSize: 16;  }
-            StyledText { text: main.description; font.pixelSize: 12; }
-        }
-        Item { Layout.fillWidth: true }
-        StyledSwitch {
-            checked: Config.options[main.prefField.split('.')[0]][main.prefField.split('.')[1]]
-            onToggled: {
-                Config.setNestedValue(main.prefField, checked)
-            }
+        StyledSwitchOption {
+            title: "Autohide"
+            description: "Automaticly hide bar when not focused. Still experimental"
+            prefField: "bar.autohide"
         }
     }
 }

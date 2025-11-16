@@ -111,7 +111,11 @@ PanelWindow {
         ]
 
         content: Item {
+            anchors.topMargin: Config.options.bar.position === 1 ? Appearance.margin.large : 0
+            anchors.bottomMargin: Config.options.bar.position === 2 ? Appearance.margin.large : 0
             anchors.fill: parent
+            opacity: SessionState.mediaPlayerOpen ? 1 : 0
+            Behavior on opacity { Anim {} }
 
             Rectangle {
                 id: artImage
@@ -120,8 +124,6 @@ PanelWindow {
                 color: Appearance.m3colors.m3paddingContainer
                 radius: Appearance.rounding.small
                 anchors.verticalCenter: parent.verticalCenter
-                opacity: SessionState.mediaPlayerOpen ? 1 : 0
-                Behavior on opacity { Anim {} }
                 layer.enabled: true
                 layer.effect: OpacityMask {
                     maskSource: Rectangle {

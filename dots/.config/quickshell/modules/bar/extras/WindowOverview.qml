@@ -117,7 +117,8 @@ PanelWindow {
         content: Item {
             anchors.fill: parent 
             anchors.leftMargin: 20
-            anchors.topMargin: 10
+            anchors.topMargin: Config.options.bar.position === 1 ? Appearance.margin.large : 0
+            anchors.bottomMargin: Config.options.bar.position === 2 ? Appearance.margin.large : 0
             opacity: SessionState.windowOverviewOpen ? 1 : 0
             Behavior on opacity { Anim {} }
 

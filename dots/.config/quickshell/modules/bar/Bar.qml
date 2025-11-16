@@ -17,7 +17,6 @@ Scope {
         PanelWindow {
             id: bar
             visible: (Config.options.bar.enabled && Config.ready)
-
             required property var modelData
 
             color: "transparent"
@@ -31,66 +30,64 @@ Scope {
                 right: true
             }
 
-            margins {
-                readonly property bool floating: Config.options.bar.style === 1
-                readonly property bool topBar: Config.options.bar.position === 1
-                readonly property bool bottomBar: Config.options.bar.position === 2
-
-                top: floating && topBar ? Appearance.margin.small : 0
-                bottom: floating && bottomBar ? Appearance.margin.small : 0
-                left: floating ? Appearance.margin.small : 0
-                right: floating ? Appearance.margin.small : 0
-            }
-
             StyledRect {
                 color: Appearance.m3colors.m3background
                 anchors.fill: parent
-                radius: Config.options.bar.style === 1 ? Config.options.bar.radius : 0
+                radius: Config.options.bar.radius 
+
+                MouseArea {
+                    id: hoverArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    enabled: Config.options.bar.autohide
+
+                    onEntered: bar.implicitHeight = Config.options.bar.implicitHeight
+                    onExited: bar.implicitHeight = 0
+                }
+
+                Binding {
+                    target: bar
+                    property: "implicitHeight"
+                    when: !Config.options.bar.autohide
+                    value: Config.options.bar.implicitHeight
+                }
 
                 Row {
                     id: centerRow
-                    anchors {
-                        centerIn: parent
-                        horizontalCenter: parent.horizontalCenter
-                        verticalCenter: parent.verticalCenter
-                    }
+                    anchors.centerIn: parent
                     spacing: 4
 
-                    LauncherToggle{}      
+                    LauncherToggle{}
                     UserHostname{}
-                    Workspaces{} 
+                    Workspaces{}
                     Network{}
                     PowerMenuToggle{}
-        
                 }
 
                 RowLayout {
-                    id: rightRow 
-                    anchors.right: parent.right 
+                    id: rightRow
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
                     spacing: 8
 
                     Media{}
                     BluetoothWifi{}
-
                 }
 
                 RowLayout {
-                    id: leftRow 
-                    anchors.left: parent.left 
-                    spacing: 8
+                    id: leftRow
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    spacing: 8
 
                     ActiveTopLevel{}
                     Clock{}
-                    
                 }
 
                 Volume{}
                 Brightness{}
                 MediaPlayer{}
                 WindowOverview{}
-
             }
         }
     }

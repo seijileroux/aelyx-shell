@@ -83,8 +83,8 @@ Singleton {
             property JsonObject bar: JsonObject {
                 // === Base properties ===
                 property int position: 1  // 1 - Top | 2 - Bottom //
-                property int style: 2 // 0 - Floating | 1 - Docked //
                 property int implicitHeight: 50  
+                property bool autohide: false
                 property int radius: Appearance.rounding.normal
                 property bool enabled: true
                 property string launcherToggleSymbol: "motion_play"
