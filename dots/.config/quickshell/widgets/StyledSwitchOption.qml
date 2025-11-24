@@ -14,10 +14,24 @@ RowLayout {
         StyledText { text: main.description; font.pixelSize: 12; }
     }
     Item { Layout.fillWidth: true }
+
     StyledSwitch {
-        checked: Shell.flags[main.prefField.split('.')[0]][main.prefField.split('.')[1]]
+        // Safely resolve nested key (e.g. "background.showClock" or "bar.modules.some.setting")
+        checked: {
+            if (!main.prefField) return false;
+            var parts = main.prefField.split('.');
+            var cur = Shell.flags;
+            for (var i = 0; i < parts.length; ++i) {
+                if (cur === undefined || cur === null) return false;
+                cur = cur[parts[i]];
+            }
+            // If the config value is undefined, default to false
+            return cur === undefined || cur === null ? false : cur;
+        }
+
         onToggled: {
-            Shell.setNestedValue(main.prefField, checked)
+            // Persist change (setNestedValue will create missing objects)
+            Shell.setNestedValue(main.prefField, checked);
         }
     }
 }
