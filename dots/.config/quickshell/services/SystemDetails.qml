@@ -99,9 +99,35 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 var cleanT = text.trim()
-                if (cleanT !== "")
-                root.uptime = cleanT
-                else root.uptime = "0 hours, 0 minutes"
+                if (cleanT === "") {
+                    root.uptime = "Up 0m"
+                    return
+                }
+
+                // remove the leading "up"
+                cleanT = cleanT.replace(/^up\s*/, "")
+
+                var parts = cleanT.split(",")
+                var d = 0, h = 0, m = 0
+
+                for (var i = 0; i < parts.length; i++) {
+                    var p = parts[i].trim()
+
+                    if (p.endsWith("days") || p.endsWith("day"))
+                        d = parseInt(p)
+                    else if (p.endsWith("hours") || p.endsWith("hour"))
+                        h = parseInt(p)
+                    else if (p.endsWith("minutes") || p.endsWith("minute"))
+                        m = parseInt(p)
+                }
+
+                var out = "Up "
+
+                if (d > 0) out += d + "d, "
+                if (h > 0) out += h + "h, "
+                out += m + "m"
+
+                root.uptime = out
             }
         }
     }

@@ -1,67 +1,87 @@
 {
     "appearance": {
-        "colorScheme": "scheme-fidelity",
+        "colorScheme": "scheme-tonal-spot",
         "theme": "dark"
     },
     "background": {
         "borderEnabled": false,
         "clockTimeFormat": "hh:mm",
-        "clockX": 1478,
-        "clockY": 638,
+        "clockX": 542,
+        "clockY": 920,
         "showClock": false,
         "wallpaperEnabled": true,
-        "wallpaperPath": "file:///home/zepyx/Pictures/Wallpapers/118016954_p0.png"
+        "wallpaperPath": "file:///home/zepyx/Downloads/03.%20Greenify.jpg"
     },
     "bar": {
+        "_comment_": "Style values are not in use rn.",
         "atTop": true,
         "enabled": true,
         "floating": true,
-        "floatingModules": true,
-        "height": 50,
-        "islandRadius": 23,
-        "moduleRadius": 14,
+        "floatingModules": false,
+        "height": 60,
+        "islandRadius": 28,
+        "moduleRadius": 15,
         "modules": {
             "activeTopLevel": {
                 "enabled": true,
-                "position": "left"
+                "position": "center",
+                "style": 1
             },
             "bluetoothWifi": {
                 "enabled": true,
-                "position": "right"
+                "position": "right",
+                "style": 1
             },
             "clock": {
                 "enabled": true,
-                "position": "left"
+                "position": "left",
+                "style": 2
+            },
+            "launcherToggle": {
+                "enabled": true,
+                "position": "left",
+                "style": 1
             },
             "media": {
-                "enabled": true,
-                "position": "right"
+                "enabled": false,
+                "position": "center",
+                "style": 1
             },
             "network": {
+                "enabled": false,
+                "position": "center",
+                "style": 1
+            },
+            "powerMenuToggle": {
                 "enabled": true,
-                "position": "center"
+                "position": "right",
+                "style": 1
             },
             "systemTray": {
-                "enabled": true,
-                "position": "left"
+                "enabled": false,
+                "position": "center",
+                "style": 2
             },
             "userHostname": {
                 "enabled": true,
-                "position": "center"
+                "position": "center",
+                "style": 1
             },
             "workspaces": {
                 "enabled": true,
                 "largeIcons": false,
-                "numWorkspaces": 8,
+                "numWorkspaces": 6,
                 "position": "center",
-                "showNumbers": false
+                "showNumbers": true,
+                "style": 1
             }
         },
-        "radius": 30,
-        "separatedIslands": true
+        "radius": 26,
+        "separatedIslands": false,
+        "width": 0
     },
     "misc": {
-        "dndEnabled": true,
+        "dndEnabled": false,
         "notificationDaemonEnabled": true,
         "pfp": "file:///home/zepyx/.local/share/aelyx/defaults/pfp.png"
     }

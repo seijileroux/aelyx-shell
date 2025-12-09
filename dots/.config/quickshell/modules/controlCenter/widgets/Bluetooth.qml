@@ -41,7 +41,7 @@ StyledRect {
     property string btstatusicon: btEnabled ? "bluetooth" : "bluetooth_disabled"
 
     // Match Network & Theme tile colors
-    color: btEnabled ? Appearance.m3colors.m3onSecondary
+    color: !btEnabled ? Appearance.m3colors.m3onSecondary
                      : Appearance.m3colors.m3paddingContainer
 
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter

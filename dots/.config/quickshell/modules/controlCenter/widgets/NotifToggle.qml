@@ -16,7 +16,7 @@ StyledRect {
     readonly property string themestatustext: isActive ? "Active" : "Inactive"
     property string themestatusicon: isActive ? "do_not_disturb_on" : "do_not_disturb_off"
 
-    color: isActive ? Appearance.m3colors.m3onSecondary
+    color: !isActive ? Appearance.m3colors.m3onSecondary
                     : Appearance.m3colors.m3paddingContainer
 
     // Grid friendly

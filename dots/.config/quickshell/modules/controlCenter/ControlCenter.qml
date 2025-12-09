@@ -24,22 +24,20 @@ PanelWindow {
     property var monitor: Hyprland.focusedMonitor
 
 
-    property real controlCenterWidth: Shell.flags.bar.modules.bluetoothWifi.position === "center" ? 560 : 520
-    property real controlCenterHeight: 640
+    property real controlCenterWidth: Shell.flags.bar.modules.bluetoothWifi.position === "center" ? 520 : 500
 
     implicitWidth: controlCenterWidth
-    implicitHeight: controlCenterHeight
 
     anchors {
-        top: Shell.flags.bar.atTop 
+        top: true
         left: Shell.flags.bar.modules.bluetoothWifi.position === "left"
         right: Shell.flags.bar.modules.bluetoothWifi.position === "right" 
-        bottom: !Shell.flags.bar.atTop
+        bottom: true
     }
 
     margins {
-        top: Shell.flags.bar.atTop ? Appearance.margin.small : 0
-        bottom: !Shell.flags.bar.atTop ? Appearance.margin.small : 0
+        top: 20
+        bottom: 20
         left: Appearance.margin.large
         right: Appearance.margin.large
     }
@@ -54,9 +52,8 @@ PanelWindow {
     StyledRect {
         id: container
         color: Appearance.m3colors.m3background
-        radius: Appearance.rounding.verylarge
+        radius: Appearance.rounding.normal
         implicitWidth: controlCenter.controlCenterWidth
-        implicitHeight: controlCenter.controlCenterHeight
 
         anchors.fill: parent
 
@@ -64,7 +61,7 @@ PanelWindow {
             anchors.fill: parent
             anchors.leftMargin: Appearance.margin.large
             anchors.rightMargin: Appearance.margin.small
-            anchors.topMargin: Appearance.margin.large + 5 
+            anchors.topMargin: Appearance.margin.large
             anchors.bottomMargin: Appearance.margin.large
 
             ColumnLayout {
@@ -74,8 +71,8 @@ PanelWindow {
                 anchors.right: parent.right
                 anchors.leftMargin: Appearance.margin.tiny
                 anchors.rightMargin: Appearance.margin.small
-                anchors.topMargin: Shell.flags.bar.atTop ? Appearance.margin.large : 0
-                anchors.bottomMargin: !Shell.flags.bar.atTop ? Appearance.margin.large : 0
+                anchors.topMargin: Shell.flags.bar.atTop ? Appearance.margin.small : 0
+                anchors.bottomMargin: !Shell.flags.bar.atTop ? Appearance.margin.small : 0
                 anchors.margins: Appearance.margin.large
                 spacing: Appearance.margin.large
 
@@ -83,66 +80,81 @@ PanelWindow {
                 RowLayout {
                     Layout.fillWidth: true
 
-                    ProfilePicture {}
-
                     ColumnLayout {
                         Layout.fillWidth: true
                         Layout.leftMargin: 10
                         Layout.alignment: Qt.AlignVCenter
                         spacing: 2
 
-                        StyledText { 
-                            text: SystemDetails.username 
-                            font.pixelSize: Appearance.font.size.wildass - 6
-                        }
-
                         RowLayout {
                             spacing: 8
 
                             StyledText {
                                 text: SystemDetails.osIcon
-                                font.pixelSize: Appearance.font.size.huge
+                                font.pixelSize: Appearance.font.size.hugeass + 6
                             }
 
                             StyledText {
-                                text: Stringify.shortText(SystemDetails.uptime, 18)
-                                font.pixelSize: Appearance.font.size.normal
+                                text: SystemDetails.uptime
+                                font.pixelSize: Appearance.font.size.large
+                                Layout.alignment: Qt.AlignHCenter
                             }
                         }
                     }
 
                     Item { Layout.fillWidth: true }
 
-                    Column {
+                    Row {
                         spacing: 6
                         Layout.leftMargin: 25
                         Layout.alignment: Qt.AlignVCenter 
                         StyledRect {
-                            id: powerbtncontainer
-                            color: Appearance.m3colors.m3paddingContainer
-                            radius: Appearance.rounding.normal
-                            implicitHeight: settingsButton.height + Appearance.margin.tiny
-                            implicitWidth: settingsButton.width + Appearance.margin.small
+                            id: editbtncontainer
+                            color: "transparent"
+                            radius: Appearance.rounding.large
+                            implicitHeight: editButton.height + Appearance.margin.tiny
+                            implicitWidth: editButton.width + Appearance.margin.small
                             Layout.alignment: Qt.AlignRight | Qt.AlignTop
                             Layout.topMargin: 10
                             Layout.leftMargin: 15
 
                             MaterialSymbolButton {
-                                id: powerButton
-                                icon: "power_settings_new"
+                                id: editButton
+                                icon: "edit"
                                 anchors.centerIn: parent
-                                iconSize: Appearance.font.size.wildass - 10
+                                iconSize: Appearance.font.size.hugeass + 2
 
                                 onButtonClicked: {
-                                    GlobalStates.controlCenterOpen = false
-                                    GlobalStates.powerMenuOpen = true
+                                    Quickshell.execDetached(["hyprpicker"])
+                                    GlobalStates.controlCenterOpen = false;
+                                }
+                            }
+                        }
+                        StyledRect {
+                            id: reloadbtncontainer
+                            color: "transparent"
+                            radius: Appearance.rounding.large
+                            implicitHeight: reloadButton.height + Appearance.margin.tiny
+                            implicitWidth: reloadButton.width + Appearance.margin.small
+                            Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                            Layout.topMargin: 10
+                            Layout.leftMargin: 15
+
+                            MaterialSymbolButton {
+                                id: reloadButton
+                                icon: "refresh"
+                                anchors.centerIn: parent
+                                iconSize: Appearance.font.size.hugeass + 4
+
+                                onButtonClicked: {
+                                    Quickshell.execDetached(["bash", "-c", "~/.local/share/aelyx/scripts/system/reloadSystem.sh"])
                                 }
                             }
                         }
                         StyledRect {
                             id: settingsbtncontainer
-                            color: Appearance.m3colors.m3paddingContainer
-                            radius: Appearance.rounding.normal
+                            color: "transparent"
+                            radius: Appearance.rounding.large
                             implicitHeight: settingsButton.height + Appearance.margin.tiny
                             implicitWidth: settingsButton.width + Appearance.margin.small
                             Layout.alignment: Qt.AlignRight | Qt.AlignTop
@@ -153,11 +165,33 @@ PanelWindow {
                                 id: settingsButton
                                 icon: "settings"
                                 anchors.centerIn: parent
-                                iconSize: Appearance.font.size.wildass - 10
+                                iconSize: Appearance.font.size.hugeass + 2
 
                                 onButtonClicked: {
                                     GlobalStates.controlCenterOpen = false
                                     GlobalStates.visible_settingsMenu = true
+                                }
+                            }
+                        }
+                        StyledRect {
+                            id: powerbtncontainer
+                            color: "transparent"
+                            radius: Appearance.rounding.large
+                            implicitHeight: settingsButton.height + Appearance.margin.tiny
+                            implicitWidth: settingsButton.width + Appearance.margin.small
+                            Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                            Layout.topMargin: 10
+                            Layout.leftMargin: 15
+
+                            MaterialSymbolButton {
+                                id: powerButton
+                                icon: "power_settings_new"
+                                anchors.centerIn: parent
+                                iconSize: Appearance.font.size.hugeass + 2
+
+                                onButtonClicked: {
+                                    GlobalStates.controlCenterOpen = false
+                                    GlobalStates.powerMenuOpen = true
                                 }
                             }
                         }
@@ -171,13 +205,12 @@ PanelWindow {
                     radius: 1
                 }
 
-                // --- Bottom Grid Section (right under the separator) ---
                 GridLayout {
                     id: middleGrid
                     Layout.fillWidth: true
                     columns: 2
-                    columnSpacing: Appearance.margin.large
-                    rowSpacing: Appearance.margin.large
+                    columnSpacing: 8
+                    rowSpacing: 8
 
                     // Make all items stretch equally
                     Layout.preferredWidth: parent.width
@@ -190,7 +223,7 @@ PanelWindow {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 80
                     }
-                    Notifications {
+                    NotifToggle {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 80                    
                     }
@@ -211,6 +244,7 @@ PanelWindow {
                     spacing: Appearance.margin.small
                     
                     Layout.fillWidth: true
+
 
                     RowLayout {
                         StyledText {
@@ -258,6 +292,17 @@ PanelWindow {
                             Layout.preferredHeight: 50
                         }
                     }
+
+                    Rectangle {
+                        Layout.fillWidth: true
+                        height: 1
+                        color: Appearance.m3colors.m3outlineVariant
+                        radius: 1
+                        Layout.topMargin: 10
+                    }
+
+                    NotifModal{}
+
                 }
             }
         }

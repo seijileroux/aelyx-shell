@@ -45,6 +45,7 @@ packages=(
     "ddcutil"
     "qt5-graphicaleffects"
     "qt6-5compat"
+    "hyprpicker"
 )
 
 # ----------------------------------------------------------

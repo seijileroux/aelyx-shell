@@ -11,7 +11,7 @@ StyledRect {
     width: 200
     height: 80
     radius: Appearance.rounding.verylarge
-    color: wifiConnected ? Appearance.m3colors.m3onSecondary : Appearance.m3colors.m3paddingContainer
+    color: !wifiConnected ? Appearance.m3colors.m3onSecondary : Appearance.m3colors.m3paddingContainer
 
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 

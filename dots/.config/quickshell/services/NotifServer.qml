@@ -13,6 +13,7 @@ Singleton {
 
     property list<Notif> data: []
     property list<Notif> popups: data.filter(n => n.popup && !n.tracked)
+    property list<Notif> history: data
 
     NotificationServer {
         id: server
