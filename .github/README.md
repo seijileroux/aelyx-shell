@@ -57,8 +57,8 @@ Key goals:
 - /dots-extra/     — Optional dotfiles, themes, and wallpapers
 - /license/        — License and contributing docs
 - /previews/       — Example screenshots used in this README
-- setup/           — Installer scripts and bootstrap utilities
-- bootstrap.sh     — High-level dependency installer
+- /setup/          — Installer scripts and bootstrap utilities
+- /.github/        — README and other stuff
 
 ---
 
