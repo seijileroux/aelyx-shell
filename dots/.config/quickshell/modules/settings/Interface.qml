@@ -8,8 +8,8 @@ import qs.settings
 import qs.widgets
 
 ContentMenu {
-    title: "Interface"
-    description: "Adjust the desktop's interface."
+    title: "Bar"
+    description: "Adjust the bar's look."
 
     ContentCard {
         StyledText {
@@ -53,7 +53,7 @@ ContentMenu {
 
         StyledSwitchOption {
             title: "Enabled"
-            description: "Enable of disable the bar."
+            description: "Enable or disable the bar."
             prefField: "bar.enabled"
         }
 
@@ -61,6 +61,12 @@ ContentMenu {
             title: "Floating Bar"
             description: "Whether to keep the bar floating."
             prefField: "bar.floating"
+        }
+
+        StyledSwitchOption {
+            title: "Goth Corners"
+            description: "Enable or disable Goth Corners."
+            prefField: "bar.gothCorners"
         }
 
         StyledSwitchOption {

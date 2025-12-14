@@ -90,7 +90,7 @@ StyledRect {
         boundsBehavior: Flickable.StopAtBounds
         ScrollBar.vertical: ScrollBar { }
 
-        model: (!Shell.flags.misc.dndEnabled && Shell.flags.misc.notificationDaemonEnabled)
+        model: Shell.flags.misc.notificationDaemonEnabled
             ? NotifServer.history
             : []
 

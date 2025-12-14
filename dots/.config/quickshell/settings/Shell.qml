@@ -117,6 +117,7 @@ Singleton {
             property JsonObject bar: JsonObject {
                 property bool atTop: true
                 property bool floating: true
+                property bool gothCorners: true
                 property bool floatingModules: false
                 property bool separatedIslands: true
                 property bool enabled: true

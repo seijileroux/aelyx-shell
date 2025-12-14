@@ -7,6 +7,11 @@ import QtQuick
 
 Scope {
     id: root 
+
+    GothCorners {
+        visible: Shell.flags.bar.gothCorners && !Shell.flags.bar.floating && !Shell.flags.bar.floatingModules
+    } 
+                    
     Variants {
         model: Quickshell.screens 
         
@@ -49,6 +54,7 @@ Scope {
             BarContent {
                 anchors.fill: parent
             }
+
         }
     }
 }

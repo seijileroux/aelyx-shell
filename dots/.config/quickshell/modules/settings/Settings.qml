@@ -45,7 +45,7 @@ Scope {
                 // header
                 { header: true, label: "Customization" },
                 { icon: "instant_mix", label: "Quick Settings", page: 0 },
-                { icon: "imagesearch_roller", label: "Interface", page: 1},
+                { icon: "toolbar", label: "Bar", page: 1},
                 { icon: "wallpaper", label: "Wallpapers", page: 2},
                 { icon: "build", label: "Misc", page: 3},
             ]

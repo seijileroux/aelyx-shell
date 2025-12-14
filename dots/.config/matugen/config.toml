@@ -31,3 +31,5 @@ post_hook = "kill -SIGUSR1 $(pidof kitty)"
 [templates.hyprlock]
 input_path = './templates/hyprlock.conf'
 output_path = '~/.config/hypr/hyprlock.conf'
+post_hook = 'notify-send "Dynamic Colors Applied"'
+
