@@ -36,8 +36,8 @@ echo -e "\n${BLUE}>> Copying configuration files...${RESET}"
 mkdir -p ~/.config
 mkdir -p ~/.local/share/aelyx
 
-cp -r dots/.config/* ~/.config/
-cp -r dots/.local/share/aelyx/* ~/.local/share/aelyx/
+cp -r ../dots/.config/* ~/.config/ 
+cp -r ../dots/.local/share/aelyx/* ~/.local/share/aelyx/
 
 echo -e "${GREEN}✔ Successfully installed Aelyx!${RESET}\n"
 echo -e "${GRAY}You're all set. Enjoy your new setup.${RESET}"
