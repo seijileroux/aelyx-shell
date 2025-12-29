@@ -6,6 +6,8 @@ QS_DIR="$HOME/.config/quickshell"
 REPO="xZepyx/aelyx-shell"
 API="https://api.github.com/repos/$REPO/releases/latest"
 
+figlet "Updating"
+
 if [[ ! -f "$CONFIG" ]]; then
     echo "config.json not found"
     exit 1
@@ -18,12 +20,14 @@ if [[ -z "$current" ]]; then
     exit 1
 fi
 
-latest="$(curl -fsSL "$API" | jq -r '.name // .tag_name')"
+latest_tag="$(curl -fsSL "$API" | jq -r '.name // .tag_name')"
 
-if [[ -z "$latest" ]]; then
+if [[ -z "$latest_tag" ]]; then
     echo "failed to fetch latest version"
     exit 1
 fi
+
+latest="${latest_tag#v}"
 
 if [[ "$current" == "$latest" ]]; then
     echo "already up to date ($current)"
@@ -34,24 +38,23 @@ tmp="$(mktemp -d)"
 zip="$tmp/aelyx-shell.zip"
 
 curl -fL \
-    "https://github.com/$REPO/releases/download/$latest/aelyx-shell.zip" \
+    "https://github.com/$REPO/releases/download/$latest_tag/aelyx-shell.zip" \
     -o "$zip"
 
 unzip -q "$zip" -d "$tmp"
 
-src="$(find "$tmp" -type d -name quickshell | head -n1)"
-
-if [[ -z "$src" ]]; then
+if [[ ! -d "$tmp/quickshell" ]]; then
     echo "quickshell folder not found"
     exit 1
 fi
 
 rm -rf "$QS_DIR"
 mkdir -p "$QS_DIR"
-cp -r "$src/"* "$QS_DIR/"
+cp -r "$tmp/quickshell/"* "$QS_DIR/"
 
 tmp_cfg="$(mktemp)"
 jq --arg v "$latest" '.shellInfo.version = $v' "$CONFIG" > "$tmp_cfg"
 mv "$tmp_cfg" "$CONFIG"
-
-echo "updated $current -> $latest"
+killall quickshell; killall qs
+quickshell -c ae-qs
+echo "Updated $current -> $latest"
