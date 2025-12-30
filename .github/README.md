@@ -115,11 +115,9 @@ Notes:
 
 </div>
 
-- Shell: QuickShell-compatible environment (see QuickShell docs)
-- Compositor: Hyprland is recommended but not required
-- Terminal: Kitty or another modern terminal emulator
-- Fonts: A patched monospace font with ligatures for best prompt rendering
-- Git: recommended for keeping dotfiles updated and synced
+- Compositor: Hyprland
+- Terminal: Kitty
+- Fonts: JetBrainsMono
 
 ---
 
@@ -129,7 +127,7 @@ Notes:
 
 </div>
 
-- Missing alias or function:
+- Missing/Unloaded Modules:
   - Ensure the module file is loaded in the correct order. Check `~/.config/quickshell/shell.qml`.
 - Broken visuals:
   - Check `~/.local/share/aelyx/user/config.json`
@@ -139,6 +137,10 @@ Notes:
   - Inspect existing profile files (`~/.bashrc`, `~.zshrc`, `~/.profile`, `~/.config`) before applying changes.
 - Installer failures:
   - Re-run the installer with verbose output or check `install/` scripts for dependency checks.
+- Create issues if nothing works make sure when you create a issue make this checklist:
+  - [ ] The install script completed without errors, and I did not skip or ignore any failed commands
+  - [ ] My system is up to date (including aelyx-shell).  
+  - [ ] I am using the latest **stable** release of aelyx-shell (not beta/alpha/rc build)
 
 ---
 
@@ -151,7 +153,7 @@ Notes:
 - Redesign config layout and widget system for improved modularity and discoverability | Done
 - Add more curated optional modules and theme variants
 - Improve installer prompts and backup behavior | Done
-- Improve performance
+- Improve shell performance (currently a big laggy on my machine)
 
 ---
 
@@ -178,7 +180,6 @@ See `license/CONTRIBUTING.md` for full contribution guidelines.
 
 - Maintainer: xZepyx (Aditya Yadav) 
 - Contact: [zepyxunderscore@gmail.com](mailto:zepyxunderscore@gmail.com)
-- Side Note: Again I'm low on time and only the bugs I find or someone using the dots finds will be fixed. I might add more widgets if needed. Otherwise the shell is completely usable.
 
 ---
 
