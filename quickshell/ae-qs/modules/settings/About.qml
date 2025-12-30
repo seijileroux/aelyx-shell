@@ -9,17 +9,6 @@ import qs.settings
 import qs.services
 
 Item {
-    anchors.fill: parent
-    opacity: visible ? 1 : 0
-    scale: visible ? 1 : 0.95
-
-    Behavior on opacity {
-        NumberAnimation { duration: Appearance.animation.medium; easing.type: Appearance.animation.easing }
-    }
-    Behavior on scale {
-        NumberAnimation { duration: Appearance.animation.medium; easing.type: Appearance.animation.easing }
-    }
-
 
     ColumnLayout {
         anchors.centerIn: parent
@@ -63,6 +52,7 @@ Item {
                 StyledButton {
                     text: "View on GitHub"
                     icon: 'code'
+                    secondary: true
                     onClicked: Qt.openUrlExternally("https://github.com/xZepyx/aelyx-shell")
                     topRightRadius: 5
                     bottomRightRadius: 5
@@ -81,7 +71,7 @@ Item {
     }
 
     Rectangle {
-        color: Appearance.m3colors.m3secondary
+        color: ma.containsMouse ? Qt.lighter(Appearance.m3colors.m3secondaryContainer, 1.1) : Appearance.m3colors.m3secondaryContainer
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.margins: 40
@@ -92,11 +82,12 @@ Item {
             id: updateText
             text: "󰚰" // nerd fonts are somewhat good, but material symbols are way better :}
             font.pixelSize: 24
-            color: Appearance.colors.m3onSecondary
             anchors.centerIn: parent
         }
         MouseArea {
+            id: ma
             anchors.fill: parent 
+            hoverEnabled: true
             onClicked: {
                 GlobalStates.visible_settingsMenu = false; 
                 Quickshell.execDetached(["notify-send", "Updating aelyx-shell"])

@@ -200,7 +200,7 @@ Scope {
                     BarConfig { }
                     Wallpaper { }
                     MiscConfig { }
-                    About{ }
+                    About { }
                 }
             }
         }

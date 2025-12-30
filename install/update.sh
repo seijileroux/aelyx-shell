@@ -65,6 +65,5 @@ cp -r "$SRC_DIR/"* "$QS_DIR/"
 tmp_cfg="$(mktemp)"
 jq --arg v "$latest" '.shellInfo.version = $v' "$CONFIG" > "$tmp_cfg"
 mv "$tmp_cfg" "$CONFIG"
-killall quickshell
-quickshell -c ae-qs
+bash ~/.local/share/aelyx/scripts/system/reloadSystem.sh
 echo "Updated $current -> $latest"
