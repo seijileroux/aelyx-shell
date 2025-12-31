@@ -26,8 +26,9 @@ Scope {
             screen: modelData
             namespace: "aelyx:bar"
             visible: Shell.flags.bar.enabled
-            implicitHeight: Shell.ready && (Shell.flags.bar.position === "top" || Shell.flags.bar.position === "bottom") ? Shell.flags.bar.density : 1080
-            implicitWidth: Shell.ready && (Shell.flags.bar.position === "left" || Shell.flags.bar.position === "right") ? Shell.flags.bar.density : 1080
+            implicitHeight: Shell.flags.bar.density
+            implicitWidth: Shell.flags.bar.density
+
 
             anchors {
                 top: Shell.flags.bar.position === "top" || Shell.flags.bar.position === "left" || Shell.flags.bar.position === "right"
