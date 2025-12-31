@@ -81,7 +81,7 @@ Follow these steps to install the collection. The automated setup is conservativ
 
 3. Run the installer:
     ```bash
-    cd intall && bash unified.sh
+    cd install && bash unified.sh
     ```
     - The installer will guide you through dependency checks and optional modules.
     - The script will either let to install the complete dotfiles or only the shell itself.
