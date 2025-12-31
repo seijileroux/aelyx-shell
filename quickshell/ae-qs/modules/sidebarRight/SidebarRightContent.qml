@@ -240,7 +240,7 @@ Item {
             }
 
             NotifModal {
-                Layout.preferredHeight: 460
+                Layout.preferredHeight: (Shell.flags.bar.position === "left" || Shell.flags.bar.position === "right") ? 530 : 480
             }
         }
     }

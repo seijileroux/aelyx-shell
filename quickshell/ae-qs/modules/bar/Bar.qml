@@ -76,6 +76,7 @@ Scope {
             }
 
             // I'm too lazy to make all new widgets for the vertical bar so.... I'm using this way but it still works.
+            // Also the verticalBar does not include the 4 widgets which the horizontalBar does.
 
             BarContent {
                 anchors.fill: parent

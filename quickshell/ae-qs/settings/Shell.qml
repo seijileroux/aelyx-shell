@@ -123,7 +123,6 @@ Singleton {
 
             property JsonObject bar: JsonObject {
                 property string position: "top"
-                property bool atTop: true
                 property bool floating: true
                 property bool gothCorners: true
                 property bool enabled: true
