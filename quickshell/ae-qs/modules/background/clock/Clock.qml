@@ -2,99 +2,68 @@ import qs.services
 import qs.settings
 import qs.widgets
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 
 Scope {
-    id: root 
+    id: root
+
     Variants {
-        model: Quickshell.screens 
+        model: Quickshell.screens
+
         PanelWindow {
             required property var modelData
             id: clock
+
             color: "transparent"
             visible: (Shell.flags.background.showClock && Shell.ready)
             exclusiveZone: 0
             WlrLayershell.layer: WlrLayer.Bottom
             screen: modelData
 
-            implicitWidth: 250
-            implicitHeight: 100
+            implicitWidth: 360
+            implicitHeight: 160
 
-            property int borderLimit: 50
+            property int padding: 50
 
-            // Load last saved position
-            property int savedX: Shell.flags.background.clockX
-            property int savedY: Shell.flags.background.clockY
-
-            // margins now synced to both axes equally
             anchors {
-                left: true
-                top: true
+                top: Shell.flags.background.clockPosition.startsWith("top")
+                bottom: Shell.flags.background.clockPosition.startsWith("bottom")
+                left: Shell.flags.background.clockPosition.endsWith("left")
+                right: Shell.flags.background.clockPosition.endsWith("right")
             }
+
             margins {
-                left: savedX
-                top: savedY
-                right: savedX
-                bottom: savedY
+                top: padding
+                bottom: padding
+                left: padding
+                right: padding
             }
 
-            Component.onCompleted: {
-                // ensure saved positions are within screen limits
-                const screenW = modelData.width
-                const screenH = modelData.height
-                const safeRight = screenW - implicitWidth - borderLimit
-                const safeBottom = screenH - implicitHeight - borderLimit
+            Column {
+                anchors.fill: parent
+                spacing: -40
 
-                if (savedX < borderLimit || savedX > safeRight)
-                    margins.left = borderLimit
-                if (savedY < borderLimit || savedY > safeBottom)
-                    margins.top = borderLimit
-            }
+                StyledText {
+                    animate: false
+                    text: Time.format(Shell.flags.background.clockTimeFormat)
+                    font.pixelSize: Appearance.font.size.wildass * 3
+                    font.family: Appearance.font.family.main
+                    font.bold: true
+                }
 
-            function savePosition() {
-                Shell.setNestedValue("background.clockX", margins.left)
-                Shell.setNestedValue("background.clockY", margins.top)
-            }
-
-            function moveRandomly() {
-                const screenW = Screen.width
-                const screenH = Screen.height
-
-                const safeLeft = borderLimit
-                const safeTop = borderLimit
-                const safeRight = screenW - implicitWidth - borderLimit
-                const safeBottom = screenH - implicitHeight - borderLimit
-
-                const newX = Math.floor(Math.random() * (safeRight - safeLeft) + safeLeft)
-                const newY = Math.floor(Math.random() * (safeBottom - safeTop) + safeTop)
-
-                margins.left = newX
-                margins.top = newY
-
-                // Save after movement
-                savePosition()
-            }
-
-            StyledText {
-                id: textItem
-                anchors.centerIn: parent
-                animate: false
-                text: Time.format(Shell.flags.background.clockTimeFormat)
-                font.pixelSize: Appearance.font.size.wildass * 2
-                font.family: Appearance.font.family.main
-                font.bold: true
-                color: Appearance.m3colors.m3primary
-            }
-
-            IpcHandler {
-                target: "clock"
-                function changePosition() {
-                    moveRandomly()
+                StyledText {
+                    anchors.left: parent.left 
+                    anchors.leftMargin: 8
+                    animate: false
+                    text: Time.format("dddd, dd/MM")
+                    font.pixelSize: 32
+                    font.family: Appearance.font.family.main
+                    font.bold: true
                 }
             }
         }
-
     }
 }

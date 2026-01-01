@@ -84,7 +84,6 @@ ContentMenu {
 
     }
 
-
     ContentCard {
         StyledText {
             text: "Clock"
@@ -98,20 +97,43 @@ ContentMenu {
             prefField: "background.showClock"
         }
 
-        NumberStepper {
-            label: "X Offset"
-            description: "Change the X offset of the clock."
-            prefField: "background.clockX"
-            minimum: 1
-            maximum: 128
+        StyledText {
+            text: "Clock Position"
+            font.pixelSize: 16
+            font.bold: true
         }
 
-        NumberStepper {
-            label: "Y Offset"
-            description: "Change the Y offset of the clock."
-            prefField: "background.clockY"
-            minimum: 1
-            maximum: 128
+        RowLayout {
+            spacing: 8
+
+            StyledButton {
+                text: "Top Left"
+                checked: Shell.flags.background.clockPosition === "top-left"
+                onClicked: Shell.setNestedValue("background.clockPosition", "top-left")
+                Layout.fillWidth: true
+            }
+
+            StyledButton {
+                text: "Top Right"
+                checked: Shell.flags.background.clockPosition === "top-right"
+                onClicked: Shell.setNestedValue("background.clockPosition", "top-right")
+                Layout.fillWidth: true
+            }
+
+            StyledButton {
+                text: "Bottom Left"
+                checked: Shell.flags.background.clockPosition === "bottom-left"
+                onClicked: Shell.setNestedValue("background.clockPosition", "bottom-left")
+                Layout.fillWidth: true
+            }
+
+            StyledButton {
+                text: "Bottom Right"
+                checked: Shell.flags.background.clockPosition === "bottom-right"
+                onClicked: Shell.setNestedValue("background.clockPosition", "bottom-right")
+                Layout.fillWidth: true
+            }
+
         }
 
     }

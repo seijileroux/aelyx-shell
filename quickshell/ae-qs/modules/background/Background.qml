@@ -1,9 +1,11 @@
 import QtQuick
+import QtQuick.Layouts
+import QtMultimedia
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
-import QtQuick.Layouts
 import "clock/"
+import qs.functions
 import qs.settings
 import qs.widgets
 
@@ -18,14 +20,14 @@ Scope {
 
             required property var modelData
             property string selectedWallpaper: ""
+            property bool isVideo: Utils.isVideo(Shell.flags.background.wallpaperPath)
 
             function applyWallpaper() {
-                background.source = selectedWallpaper;
                 Shell.setNestedValue("background.wallpaperPath", selectedWallpaper);
                 GlobalProcesses.genThemeColors.running = true;
             }
 
-            color: background.status === Image.Error ? Appearance.colors.colLayer2 : "transparent"
+            color: (!isVideo && backgroundImage.status === Image.Error) ? Appearance.colors.colLayer2 : "transparent"
             namespace: "aelyx:background"
             exclusionMode: ExclusionMode.Ignore
             WlrLayershell.layer: WlrLayer.Background
@@ -57,18 +59,29 @@ Scope {
             }
 
             Image {
-                id: background
+                id: backgroundImage
 
                 anchors.fill: parent
-                width: modelData.width
-                height: modelData.height
+                visible: !backgroundContainer.isVideo
                 fillMode: Image.PreserveAspectCrop
                 source: Shell.flags.background.wallpaperPath
             }
 
+            Video {
+                id: backgroundVideo
+
+                anchors.fill: parent
+                visible: backgroundContainer.isVideo
+                source: Shell.flags.background.wallpaperPath
+                autoPlay: true
+                loops: MediaPlayer.Infinite
+                muted: true
+                fillMode: VideoOutput.PreserveAspectCrop
+            }
+
             Item {
                 anchors.centerIn: parent
-                visible: background.status === Image.Error
+                visible: !isVideo && backgroundImage.status === Image.Error
 
                 Rectangle {
                     width: 550
@@ -120,7 +133,7 @@ Scope {
                             icon: "wallpaper"
                             secondary: true
                             Layout.alignment: Qt.AlignHCenter
-                            onClicked: wallpaperProc.running = true;
+                            onClicked: wallpaperProc.running = true
                         }
 
                     }

@@ -19,7 +19,7 @@ Item {
         id: wallpaperModel
 
         folder: StandardPaths.writableLocation(StandardPaths.PicturesLocation) + "/Wallpapers"
-        nameFilters: ["*.png", "*.jpg", "*.jpeg", "*.webp"]
+        nameFilters: ["*.png", "*.jpg", "*.jpeg", "*.webp", "mp4", "mkv", "webm", "avi", "mov", "flv", "wmv", "m4v"]
         showDirs: false
         showDotAndDotDot: false
     }

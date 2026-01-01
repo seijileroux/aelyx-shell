@@ -116,8 +116,7 @@ Singleton {
                 property url wallpaperPath: StandardPaths.writableLocation(StandardPaths.HomeLocation) + "/.local/share/aelyx/defaults/wallpaper.jpg"
                 property bool borderEnabled: false
                 property string clockTimeFormat: "hh:mm"
-                property int clockX: 100
-                property int clockY: 100
+                property string clockPosition: "bottom-left"
                 property bool showClock: true
             }
 
