@@ -4,9 +4,26 @@ set -Eeuo pipefail
 CONFIG="$HOME/.local/share/aelyx/user/config.json"
 QS_DIR="$HOME/.config/quickshell/ae-qs"
 REPO="xZepyx/aelyx-shell"
-API="https://api.github.com/repos/$REPO/releases/latest"
+API="https://api.github.com/repos/$REPO/releases"
 
 figlet "Updating"
+
+echo
+echo "Version to install:"
+echo "  1) Stable"
+echo "  2) Pre-release (indev)"
+echo
+
+read -rp "Select option (1/2): " choice
+
+case "$choice" in
+    1) mode="stable" ;;
+    2) mode="indev" ;;
+    *)
+        echo "invalid option"
+        exit 1
+        ;;
+esac
 
 # Check config exists
 if [[ ! -f "$CONFIG" ]]; then
@@ -21,10 +38,20 @@ if [[ -z "$current" ]]; then
     exit 1
 fi
 
-# Get latest release version
-latest_tag="$(curl -fsSL "$API" | jq -r '.name // .tag_name')"
-if [[ -z "$latest_tag" ]]; then
-    echo "failed to fetch latest version"
+# Fetch releases and select tag
+latest_tag="$(
+  curl -fsSL "$API" |
+  jq -r "
+    map(select(.draft == false)) |
+    $( [[ "$mode" == "stable" ]] && echo 'map(select(.prerelease == false)) |' ) 
+    sort_by(.published_at) |
+    last |
+    .tag_name
+  "
+)"
+
+if [[ -z "$latest_tag" || "$latest_tag" == "null" ]]; then
+    echo "failed to determine release version"
     exit 1
 fi
 
@@ -35,35 +62,42 @@ if [[ "$current" == "$latest" ]]; then
     exit 0
 fi
 
-# Create temp dir and download zip
+# Download GitHub source zip
 tmp="$(mktemp -d)"
-zip="$tmp/aelyx-shell.zip"
+zip="$tmp/source.zip"
 
 curl -fL \
-    "https://github.com/$REPO/releases/download/$latest_tag/aelyx-shell.zip" \
+    "https://github.com/$REPO/archive/refs/tags/$latest_tag.zip" \
     -o "$zip"
 
 # Extract zip
 unzip -q "$zip" -d "$tmp"
 
-SRC_DIR="$tmp/aelyx-shell/quickshell/ae-qs"
+root_dir="$tmp/aelyx-shell-${latest}"
 
-# Check if ae-qs exists in extracted folder
-if [[ ! -d "$SRC_DIR" ]]; then
-    echo "ae-qs folder not found in ZIP"
+if [[ ! -d "$root_dir" ]]; then
+    echo "failed to locate extracted source directory: $root_dir"
     exit 1
 fi
 
-# Remove old contents and ensure folder exists
-rm -rf "$QS_DIR"/*
-mkdir -p "$QS_DIR"
+SRC_DIR="$root_dir/quickshell/ae-qs"
 
-# Copy new contents
+if [[ ! -d "$SRC_DIR" ]]; then
+    echo "ae-qs folder not found in source archive"
+    exit 1
+fi
+
+# Replace contents
+rm -rf "$QS_DIR"
+mkdir -p "$QS_DIR"
 cp -r "$SRC_DIR/"* "$QS_DIR/"
 
 # Update version in config.json
 tmp_cfg="$(mktemp)"
 jq --arg v "$latest" '.shellInfo.version = $v' "$CONFIG" > "$tmp_cfg"
 mv "$tmp_cfg" "$CONFIG"
+
+# Reload system
 bash ~/.local/share/aelyx/scripts/system/reloadSystem.sh > /dev/null 2>&1 & disown
+
 echo "Updated $current -> $latest"
