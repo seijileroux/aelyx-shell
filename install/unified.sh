@@ -8,7 +8,7 @@ RESET="\033[0m"
 
 clear
 echo -e "${BLUE}"
-figlet "ae-qs"
+figlet "aelyx-shell"
 echo -e "${RESET}"
 
 bash "$ROOT_DIR/pkg.sh"
