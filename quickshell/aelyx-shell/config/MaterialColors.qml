@@ -7,7 +7,7 @@ import Quickshell.Io
 
 Singleton {
     id: m3colors
-    property string filePath: StandardPaths.writableLocation(StandardPaths.ConfigLocation) + "/quickshell/aelyx-shell/config/runtime/colors.json"
+    property string filePath: Directories.generatedMaterialThemePath
     property alias colors: colorsJsonAdapter
     property bool ready: false
 
@@ -55,7 +55,7 @@ Singleton {
             property string on_tertiary_fixed_variant: "#424465"
             property string outline: "#919191"
             property string outline_variant: "#474747"
-            property string primary: "#5cd5fb"
+            property string primary: '#a571f2'
             property string primary_container: "#004e60"
             property string primary_fixed: "#b7eaff"
             property string primary_fixed_dim: "#5cd5fb"

@@ -7,7 +7,7 @@ import Quickshell.Io
 
 Singleton {
     id: root
-    property string filePath: StandardPaths.writableLocation(StandardPaths.ConfigLocation) + "/quickshell/aelyx-shell/config/runtime/settings.json"
+    property string filePath: Directories.shellConfigPath
     property alias flags: configOptionsJsonAdapter
     property bool ready: false
     property int readWriteDelay: 50 // milliseconds

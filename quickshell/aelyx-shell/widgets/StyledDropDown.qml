@@ -27,10 +27,10 @@ Item {
         radius: 4
 
         Behavior on border.color {
-            ColorAnimation { duration: Appearance.animation.fast; easing.type: Easing.InOutCubic }
+            ColorAnimation { duration: Appearance.animation.durations.small; easing.type: Easing.InOutCubic }
         }
         Behavior on border.width {
-            NumberAnimation { duration: Appearance.animation.fast; easing.type: Easing.InOutCubic }
+            NumberAnimation { duration: Appearance.animation.durations.small; easing.type: Easing.InOutCubic }
         }
 
         MouseArea {

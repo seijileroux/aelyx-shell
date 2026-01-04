@@ -5,7 +5,7 @@ set = false
 
 [templates.aelyxshell]
 input_path = '~/.config/matugen/templates/colors.json'
-output_path = '~/.config/quickshell/aelyx-shell/config/runtime/colors.json'
+output_path = '~/.config/aelyx-shell/config/colors.json'
 post_hook = 'qs ipc call clock changePosition'
 
 [templates.hyprland]
