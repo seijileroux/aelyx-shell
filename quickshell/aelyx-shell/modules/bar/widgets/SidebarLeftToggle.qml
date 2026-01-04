@@ -6,7 +6,7 @@ import QtQuick.Layouts
 
 Rectangle {
     id: bgRect
-    color: (Shell.flags.bar.position === "left" || Shell.flags.bar.position === "right") ? "transparent" : Appearance.m3colors.m3paddingContainer
+    color: Appearance.m3colors.m3paddingContainer
     radius: Appearance.rounding.full
 
     implicitWidth: textItem.implicitWidth + 12
@@ -19,13 +19,12 @@ Rectangle {
         anchors.verticalCenterOffset: 0.4
         anchors.horizontalCenter: parent.horizontalCenter       
         iconSize: 22
-        icon: "power_settings_new"
-        color: Appearance.m3colors.m3error
+        icon: "rocket"
     }
 
     MouseArea {
         anchors.fill: parent
-        onClicked: GlobalStates.powerMenuOpen = !GlobalStates.powerMenuOpen
+        onClicked: GlobalStates.sidebarLeftOpen = !GlobalStates.sidebarLeftOpen
     }
 
 }

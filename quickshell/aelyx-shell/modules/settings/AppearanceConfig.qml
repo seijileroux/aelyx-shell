@@ -3,8 +3,8 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
-import qs.services
 import qs.config
+import qs.services
 import qs.widgets
 
 ContentMenu {
@@ -43,6 +43,12 @@ ContentMenu {
                 }
             }
 
+        }
+
+        StyledSwitchOption {
+            title: "Tint Icons"
+            description: "Either tint icons across the shell or keep them colorized."
+            prefField: "appearance.tintIcons"
         }
 
         ColumnLayout {

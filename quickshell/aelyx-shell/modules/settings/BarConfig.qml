@@ -65,6 +65,12 @@ ContentMenu {
         }
 
         StyledSwitchOption {
+            title: "Transparent Bar"
+            description: "Whether to keep the bar transparent."
+            prefField: "bar.transparent"
+        }
+
+        StyledSwitchOption {
             title: "Goth Corners"
             description: "Enable or disable Goth Corners."
             prefField: "bar.gothCorners"

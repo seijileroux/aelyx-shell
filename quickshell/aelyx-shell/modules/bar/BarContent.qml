@@ -2,12 +2,13 @@
 
 import QtQuick
 import QtQuick.Layouts
-import qs.modules.bar.widgets
 import qs.config
+import qs.modules.bar.widgets
 import qs.widgets
 
 Item {
     // Horizontal Bar Content
+    // Vertical Bar Content
 
     property bool isHorizontal: Shell.flags.bar.position === "top" || Shell.flags.bar.position === "bottom"
 
@@ -16,14 +17,17 @@ Item {
 
         visible: isHorizontal
         anchors.left: parent.left
-        anchors.leftMargin: Shell.flags.bar.density * 0.3
+        anchors.leftMargin: Shell.flags.bar.density * 0.2
         anchors.verticalCenter: parent.verticalCenter
-        spacing: 8
+        spacing: 4
 
-        Glyph {
+        SidebarLeftToggle {
         }
 
-        ActiveTopLevel{
+        Workspaces {
+        }
+
+        LauncherToggle {
         }
 
     }
@@ -35,20 +39,13 @@ Item {
         anchors.centerIn: parent
         spacing: 4
 
-        //SystemUsage{}
         Media {
         }
 
-        Workspaces {
+        ActiveTopLevel {
         }
 
         Clock {
-        }
-
-        Utilities {
-        }
-
-        Battery {
         }
 
     }
@@ -58,24 +55,28 @@ Item {
 
         visible: isHorizontal
         anchors.right: parent.right
-        anchors.rightMargin: Shell.flags.bar.density * 0.3
+        anchors.rightMargin: Shell.flags.bar.density * 0.2
         anchors.verticalCenter: parent.verticalCenter
         spacing: 4
 
-        SystemTray {
+        Battery {
+        }
+
+        Utilities {
         }
 
         BluetoothWifi {
         }
 
-    }
+        PowerMenuToggle {
+        }
 
-    // Vertical Bar Content
+    }
 
     Item {
         visible: !isHorizontal
         anchors.top: parent.top
-        anchors.topMargin: Shell.flags.bar.density * 0.3
+        anchors.topMargin: Shell.flags.bar.density * 0.1
         anchors.horizontalCenter: parent.horizontalCenter
         // Contain rotated bounds
         implicitWidth: vRow.implicitHeight
@@ -106,25 +107,26 @@ Item {
         visible: !isHorizontal
         anchors.centerIn: parent
         anchors.verticalCenterOffset: 35
-
         implicitWidth: centerRow.implicitHeight
         implicitHeight: centerRow.implicitWidth
 
         Row {
             id: centerRow
+
             anchors.centerIn: parent
 
             ActiveTopLevel {
                 rotation: 90
             }
-        }
-    }
 
+        }
+
+    }
 
     Item {
         visible: !isHorizontal
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: Shell.flags.bar.density * 0.3
+        anchors.bottomMargin: Shell.flags.bar.density * 0.1
         anchors.horizontalCenter: parent.horizontalCenter
         implicitWidth: row.implicitHeight
         implicitHeight: row.implicitWidth

@@ -9,7 +9,7 @@ Scope {
     id: root
 
     GothCorners {
-        visible: Shell.flags.bar.gothCorners && !Shell.flags.bar.floating && !Shell.flags.bar.floatingModules && Shell.flags.bar.enabled
+        visible: Shell.flags.bar.gothCorners && !Shell.flags.bar.floating && !Shell.flags.bar.floatingModules && Shell.flags.bar.enabled && !Shell.flags.bar.transparent
     }
 
     Variants {
@@ -45,10 +45,11 @@ Scope {
             }
 
             StyledRect {
+                id: barBg
                 anchors.fill: parent
                 radius: (Shell.ready && Shell.flags.bar.floating) ? Shell.flags.bar.radius : 0
                 color: Appearance.m3colors.m3background
-                opacity: Shell.flags.bar.floatingModules ? 0 : 1
+                opacity: Shell.flags.bar.transparent ? 0 : 1
 
                 Behavior on opacity {
                     NumberAnimation {

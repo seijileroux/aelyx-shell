@@ -60,7 +60,7 @@ BarModule {
 
         color: Appearance.m3colors.m3paddingContainer
         radius: Shell.flags.bar.moduleRadius
-        implicitWidth: workspaceRow.implicitWidth + Appearance.margin.large - 4
+        implicitWidth: workspaceRow.implicitWidth + Appearance.margin.large - 8
         implicitHeight: workspaceRow.implicitHeight + Appearance.margin.normal - 8
 
         Item {
@@ -110,6 +110,7 @@ BarModule {
                     }
 
                     IconImage {
+                        id: appIcon
                         visible: Shell.flags.bar.modules.workspaces.showAppIcons
                         anchors.centerIn: parent
                         implicitSize: 20
@@ -118,6 +119,12 @@ BarModule {
                             const win = Hyprland.focusedWindowForWorkspace(index + 1)
                             return win ? Quickshell.iconPath(Utils.resolveIcon(win.class)) : ""
                         }
+                    }
+
+                    Tint {
+                        rotation: (Shell.flags.bar.position === "left" || Shell.flags.bar.position === "right") ? 270 : 0
+                        sourceItem: appIcon
+                        anchors.fill: appIcon
                     }
 
                     MaterialSymbol {

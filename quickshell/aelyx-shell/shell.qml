@@ -26,5 +26,5 @@ ShellRoot {
     Settings{}
     PowerMenu{}
     FirstTime{}
-    UpdateNotifier{}
+    //pdateNotifier{}
 }

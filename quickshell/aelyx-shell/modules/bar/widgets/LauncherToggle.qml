@@ -24,7 +24,7 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: GlobalStates.launcherOpen = true
+        onClicked: GlobalStates.launcherOpen = !GlobalStates.launcherOpen
     }
 
 }

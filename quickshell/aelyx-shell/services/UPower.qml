@@ -38,6 +38,7 @@ Item {
     Process {
         id: upowerProc
         command: ["upower", "-d"]
+        running: true
 
         stdout: StdioCollector {
             onStreamFinished: {

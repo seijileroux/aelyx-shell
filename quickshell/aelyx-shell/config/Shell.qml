@@ -96,6 +96,7 @@ Singleton {
             property JsonObject appearance: JsonObject {
                 property string theme: "dark"
                 property string colorScheme: "scheme-rainbow"
+                property bool tintIcons: false
             }
 
             property JsonObject shellInfo: JsonObject {
@@ -126,6 +127,7 @@ Singleton {
                 property bool floating: true
                 property bool gothCorners: true
                 property bool enabled: true
+                property bool transparent: false
                 property int radius: Appearance.rounding.normal
                 property int moduleRadius: Appearance.rounding.normal
                 property int islandRadius: Appearance.rounding.large
