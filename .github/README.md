@@ -28,6 +28,10 @@ Key goals:
 - Easy to review and selectively apply
 - Composable modules for prompts, completions, and UI widgets
 
+> [!CAUTION]
+> The name of the repo has been changed from "aelyx-shell" to "nucleus-shell" due to copy right reasons.
+> If you want to access the older releases refer to the [archive branch](https://github.com/xZepyx/nucleus-shell/tree/archive)
+
 ---
 
 <div align="center">
