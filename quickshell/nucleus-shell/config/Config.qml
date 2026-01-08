@@ -161,7 +161,7 @@ Singleton {
                     property JsonObject systemUsage: JsonObject {
                         property bool enabled: true
                         property bool cpuStatsEnabled: true 
-                        property bool memeoryStatsEnabled: true 
+                        property bool memoryStatsEnabled: true 
                         property bool tempStatsEnabled: true
                     }
                 }

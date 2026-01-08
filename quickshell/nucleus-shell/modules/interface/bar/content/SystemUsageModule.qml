@@ -48,7 +48,7 @@ Item {
             rotation: !isHorizontal ? 270 : 0
             Layout.leftMargin: 4
             icon: "memory_alt"
-            visible: Config.runtime.bar.modules.systemUsage.memeoryStatsEnabled
+            visible: Config.runtime.bar.modules.systemUsage.memoryStatsEnabled
             iconSize: 14
             value: SystemDetails.ramPercent
             Layout.bottomMargin: 2

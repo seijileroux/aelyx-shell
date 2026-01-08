@@ -189,9 +189,9 @@ ContentMenu {
         }
 
         StyledSwitchOption {
-            title: "Show Language Status"
-            description: "Enable or disable theme status."
-            prefField: "bar.modules.statusIcons.languageStatusEnabled"
+            title: "Show Keyboard layout Status"
+            description: "Enable or disable keyboard status."
+            prefField: "bar.modules.statusIcons.keyboardLayoutStatusEnabled"
         }
 
         StyledText {

@@ -56,7 +56,7 @@ ContentMenu {
 
             StyledDropDown {
                 label: "Position"
-                model: ["Top Left", "Top Right", "Bottom Left", "Bottom Right", "Top", "Bottom"]
+                model: ["Top Left", "Top Right", "Top"]
                 // Set initial index based on Config value
                 currentIndex: {
                     switch (Config.runtime.notifications.position.toLowerCase()) {
@@ -64,14 +64,8 @@ ContentMenu {
                         return 0;
                     case "top-right":
                         return 1;
-                    case "bottom-left":
-                        return 2;
-                    case "bottom-right":
-                        return 3;
                     case "top":
-                        return 4;
-                    case "bottom":
-                        return 5;
+                        return 3;
                     default:
                         return 0;
                     }
@@ -79,6 +73,38 @@ ContentMenu {
                 onSelectedIndexChanged: (index) => {
                     Config.updateKey("notifications.position", model[index].toLowerCase().replace(" ", "-"));
                 }
+            }
+
+        }
+
+        RowLayout {
+            id: testNotif
+
+            property string title: "Test Notifications"
+            property string description: "Run a test notification."
+            property string prefField: ''
+
+            ColumnLayout {
+                StyledText {
+                    text: testNotif.title
+                    font.pixelSize: 16
+                }
+
+                StyledText {
+                    text: testNotif.description
+                    font.pixelSize: 12
+                }
+
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            StyledButton {
+                text: "Test Notifications"
+                icon: "chat"
+                onClicked: Quickshell.execDetached(["notify-send", "This is a test notification"])
             }
 
         }
@@ -113,8 +139,8 @@ ContentMenu {
         RowLayout {
             id: brightnessPosSelector
 
-            property string title: "Web Search Engine"
-            property string description: "Choose the web search engine for web searches."
+            property string title: "Brightness Osd Position"
+            property string description: "Choose the position where the brightness osd is shown."
             property string prefField: ''
 
             ColumnLayout {
@@ -166,8 +192,8 @@ ContentMenu {
         RowLayout {
             id: volumePosSelector
 
-            property string title: "Web Search Engine"
-            property string description: "Choose the web search engine for web searches."
+            property string title: "Volume Osd Position"
+            property string description: "Choose the position where the volume osd is shown."
             property string prefField: ''
 
             ColumnLayout {
