@@ -26,22 +26,10 @@ Item {
         implicitWidth: isVertical ? row.implicitWidth + Appearance.margin.large - 10 : row.implicitWidth + Appearance.margin.large
         implicitHeight: Config.runtime.bar.modules.height
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                GlobalStates.mediaPlayerOpen = !GlobalStates.mediaPlayerOpen;
-                Qt.callLater(() => {
-                    return GlobalStates.mediaPlayerOpen = GlobalStates.mediaPlayerOpen;
-                });
-            }
-        }
-
     }
 
     Row {
         id: row
-
-        property bool isPlaying: false
 
         spacing: Appearance.margin.small
         anchors.centerIn: parent
@@ -75,8 +63,7 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    toggleProcess.running = true;
-                    updateStatusProcess.running = true;
+                    Mpris.playPause()
                 }
                 hoverEnabled: true
                 onEntered: iconButton.opacity = 1
@@ -89,49 +76,19 @@ Item {
                 to: 360
                 duration: 4000
                 loops: Animation.Infinite
-                running: row.isPlaying
+                running: Mpris.isPlaying
             }
 
         }
 
-        // MPRIS Album Title
+
         StyledText {
             id: textItem
 
-            text: StringUtils.shortText(Mpris.albumTitle, 16)
+            text: StringUtils.shortText(Mpris.title, 16)
             anchors.verticalCenter: parent.verticalCenter
             anchors.verticalCenterOffset: 0.2
             visible: !isVertical
-        }
-
-        // Play/pause toggle
-        Process {
-            id: toggleProcess
-
-            command: ["playerctl", "play-pause"]
-        }
-
-        // Get current player status
-        Process {
-            id: updateStatusProcess
-
-            command: ["playerctl", "status"]
-
-            stdout: StdioCollector {
-                onStreamFinished: {
-                    let s = text.trim().toLowerCase();
-                    row.isPlaying = (s === "playing");
-                }
-            }
-
-        }
-
-        // Poll every half second
-        Timer {
-            interval: 500
-            running: true
-            repeat: true
-            onTriggered: updateStatusProcess.running = true
         }
 
     }

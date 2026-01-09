@@ -1,72 +1,136 @@
-import Quickshell
 import QtQuick
-import Quickshell.Io
+import Quickshell
+import Quickshell.Services.Mpris
 pragma Singleton
 
-Item {
+Singleton {
     id: root
 
-    property string albumArtist: "No Artist"
-    property string albumTitle: "No Media"
-    property string artUrl: ""
-    property real percentage: (lengthSec > 0 ? (positionSec / lengthSec) * 100 : 0)
+    property alias activePlayer: instance.activePlayer
+    property bool isPlaying: activePlayer ? activePlayer.playbackState === MprisPlaybackState.Playing : false
+    property string title: activePlayer ? activePlayer.trackTitle : "No Media"
+    property string artist: activePlayer ? activePlayer.trackArtist : ""
+    property string album: activePlayer ? activePlayer.trackAlbum : ""
+    property string artUrl: activePlayer ? activePlayer.trackArtUrl : ""
+    property double position: 0
+    property double length: activePlayer ? activePlayer.length : 0
+    property var _players: Mpris.players.values
+    property int playerCount: _players.length
+    property var playerList: {
+        let list = [];
+        for (let p of _players) {
+            list.push({
+                "identity": p.identity || p.desktopEntry || "Unknown",
+                "desktopEntry": p.desktopEntry || "",
+                "player": p
+            });
+        }
+        return list;
+    }
+    property string currentPlayerName: activePlayer ? (activePlayer.identity || activePlayer.desktopEntry || "Unknown") : ""
+    property bool manualSelection: false
 
-    property int positionSec: 0
-    property int lengthSec: 0
+    function setPosition(pos) {
+        if (activePlayer)
+            activePlayer.position = pos;
 
-    function formatTime(seconds) {
-        const m = Math.floor(seconds / 60)
-        const s = Math.floor(seconds % 60)
-        return `${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`
+    }
+
+    function selectPlayer(player) {
+        if (player) {
+            instance.activePlayer = player;
+            manualSelection = true;
+        }
+    }
+
+    function selectNextPlayer() {
+        const players = Mpris.players.values;
+        if (players.length <= 1)
+            return ;
+
+        const currentIndex = players.indexOf(activePlayer);
+        const nextIndex = (currentIndex + 1) % players.length;
+        selectPlayer(players[nextIndex]);
+    }
+
+    function selectPreviousPlayer() {
+        const players = Mpris.players.values;
+        if (players.length <= 1)
+            return ;
+
+        const currentIndex = players.indexOf(activePlayer);
+        const prevIndex = (currentIndex - 1 + players.length) % players.length;
+        selectPlayer(players[prevIndex]);
+    }
+
+    function updateActivePlayer() {
+        const players = Mpris.players.values;
+        if (manualSelection && instance.activePlayer && players.includes(instance.activePlayer))
+            return ;
+
+        if (manualSelection && instance.activePlayer && !players.includes(instance.activePlayer))
+            manualSelection = false;
+
+        const playing = players.find((p) => {
+            return p.playbackState === MprisPlaybackState.Playing;
+        });
+        if (playing) {
+            instance.activePlayer = playing;
+        } else if (players.length > 0) {
+            if (!instance.activePlayer || !players.includes(instance.activePlayer))
+                instance.activePlayer = players[0];
+
+        } else {
+            instance.activePlayer = null;
+        }
+    }
+
+    function playPause() {
+        if (activePlayer && activePlayer.canTogglePlaying)
+            activePlayer.togglePlaying();
+
+    }
+
+    function next() {
+        if (activePlayer && activePlayer.canGoNext)
+            activePlayer.next();
+
+    }
+
+    function previous() {
+        if (activePlayer && activePlayer.canGoPrevious)
+            activePlayer.previous();
+
+    }
+
+    Component.onCompleted: updateActivePlayer()
+
+    QtObject {
+        id: instance
+
+        property var players: Mpris.players.values
+        property var activePlayer: null
     }
 
     Timer {
         interval: 1000
         running: true
         repeat: true
-        onTriggered: mprisProc.running = true
-    }
+        onTriggered: {
+            updateActivePlayer();
+            if (activePlayer)
+                root.position = activePlayer.position;
 
-    Process {
-        id: mprisProc
-        running: true
-        command: [
-            "playerctl",
-            "metadata",
-            "--format",
-            "{{xesam:artist}}|{{xesam:title}}|{{mpris:artUrl}}|{{position}}|{{mpris:length}}"
-        ]
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                const parts = text.trim().split("|")
-                if (parts.length < 5)
-                    return
-
-                /* Artist */
-                root.albumArtist = parts[0] !== ""
-                    ? parts[0]
-                    : "No Artist"
-
-                /* Title */
-                root.albumTitle = parts[1] !== ""
-                    ? parts[1]
-                    : "No Media"
-
-                /* Artwork */
-                if (parts[2] !== root.artUrl)
-                    root.artUrl = parts[2]
-
-                /* Position (seconds) */
-                let pos = parseFloat(parts[3])
-                if (!isNaN(pos))
-                    root.positionSec = Math.floor(pos)
-
-                /* Length (microseconds → seconds) */
-                let len = parseFloat(parts[4])
-                if (!isNaN(len))
-                    root.lengthSec = Math.floor(len / 1_000_000)
-            }
         }
     }
+
+    Connections {
+        function onValuesChanged() {
+            root._players = Mpris.players.values;
+            updateActivePlayer();
+        }
+
+        target: Mpris.players
+    }
+
 }
