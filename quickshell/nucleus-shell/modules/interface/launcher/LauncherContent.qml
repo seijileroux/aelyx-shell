@@ -16,13 +16,11 @@ Item {
 
     // Index of the currently selected app in the filtered list
     property int selectedIndex: -1
-
     // Current search query typed by the user
     property string searchQuery: ""
-
     // Variables used for calculations
-    property var calcVars: ({})
-
+    property var calcVars: ({
+    })
     // Expose the ListView and filtered model to other components if needed
     property alias listView: listView
     property alias filteredModel: filteredModel
@@ -45,7 +43,6 @@ Item {
             "bing": "https://www.bing.com/search?q=%s",
             "startpage": "https://www.startpage.com/search?q=%s"
         };
-
         const template = engines[engine] || engines["duckduckgo"];
         return template.replace("%s", encodeURIComponent(query));
     }
@@ -53,7 +50,8 @@ Item {
     // Move selection up/down in the filtered list
     function moveSelection(delta) {
         if (filteredModel.count === 0)
-            return;
+            return ;
+
         selectedIndex = Math.max(0, Math.min(selectedIndex + delta, filteredModel.count - 1));
         listView.currentIndex = selectedIndex;
         listView.positionViewAtIndex(selectedIndex, ListView.Contain);
@@ -74,6 +72,7 @@ Item {
         while (ti < text.length && pi < pattern.length) {
             if (text[ti] === pattern[pi])
                 pi++;
+
             ti++;
         }
         return pi === pattern.length;
@@ -92,6 +91,7 @@ Item {
             const res = fn(calcVars);
             if (res === undefined || Number.isNaN(res))
                 return null;
+
             return res;
         } catch (e) {
             return null;
@@ -102,51 +102,49 @@ Item {
     function updateFilter() {
         filteredModel.clear();
         const query = searchQuery.toLowerCase().trim();
-
         // Check if the query is a calculation
         const calcVal = evalExpression(query);
         if (calcVal !== null && query !== "")
             filteredModel.append({
-                name: String(calcVal),
-                displayName: String(calcVal),
-                comment: "Calculation",
-                icon: "",
-                exec: "",
-                isCalc: true,
-                isWeb: false
-            });
+            "name": String(calcVal),
+            "displayName": String(calcVal),
+            "comment": "Calculation",
+            "icon": "",
+            "exec": "",
+            "isCalc": true,
+            "isWeb": false
+        });
 
         // Filter apps from appModel
         for (let i = 0; i < appModel.count; i++) {
             const app = appModel.get(i);
             let match = false;
-
             if (query === "") {
                 match = true; // Show all if empty query
             } else if (Config.runtime.launcher.fuzzySearchEnabled) {
                 if ((app.name && fuzzyMatch(app.name, query)) || (app.comment && fuzzyMatch(app.comment, query)))
                     match = true;
+
             } else {
                 if ((app.name && app.name.toLowerCase().includes(query)) || (app.comment && app.comment.toLowerCase().includes(query)))
                     match = true;
-            }
 
+            }
             if (match)
                 filteredModel.append(app);
-        }
 
-        // If nothing matched, offer a web search
-        if (filteredModel.count === 0 && query !== "") {
-            filteredModel.append({
-                name: query,
-                displayName: "Search the web for \"" + query + "\"",
-                comment: "Web search",
-                icon: "public",
-                exec: webSearchUrl(query),
-                isCalc: false,
-                isWeb: true
-            });
         }
+        // If nothing matched, offer a web search
+        if (filteredModel.count === 0 && query !== "")
+            filteredModel.append({
+                "name": query,
+                "displayName": "Search the web for \"" + query + "\"",
+                "comment": "Web search",
+                "icon": "public",
+                "exec": webSearchUrl(query),
+                "isCalc": false,
+                "isWeb": true
+            });
 
         // Update selection
         selectedIndex = filteredModel.count > 0 ? 0 : -1;
@@ -157,18 +155,16 @@ Item {
     // Launch app, calculation, or web search
     function launchApp(idx) {
         if (idx < 0 || idx >= filteredModel.count)
-            return;
+            return ;
 
         const app = filteredModel.get(idx);
-
         if (app.isCalc)
-            return; // Calculations are displayed only
-
+            return ;
+ // Calculations are displayed only
         if (app.isWeb)
             Quickshell.execDetached(["xdg-open", app.exec]);
         else
             Quickshell.execDetached(["bash", "-c", app.exec + " &"]);
-
         closeLauncher();
     }
 
@@ -191,40 +187,48 @@ Item {
     Component.onCompleted: reloadApps()
 
     // All installed apps
-    ListModel { id: appModel }
+    ListModel {
+        id: appModel
+    }
 
     // Filtered apps for display
-    ListModel { id: filteredModel }
+    ListModel {
+        id: filteredModel
+    }
 
     // Runs script to populate appModel
     Process {
         id: appLoader
+
         running: true
         command: ["bash", "-c", Directories.scriptsPath + "/finders/find-apps.sh"]
+
         stdout: SplitParser {
             onRead: (data) => {
                 const lines = data.split("\n");
                 for (let i = 0; i < lines.length; ++i) {
                     const line = lines[i].trim();
-                    if (!line) continue;
+                    if (!line)
+                        continue;
 
                     const parts = line.split("|");
                     if (parts.length >= 4) {
                         const displayName = parts[0].trim();
                         appModel.append({
-                            name: displayName,
-                            displayName: displayName,
-                            comment: parts[1].trim(),
-                            icon: parts[2].trim(),
-                            exec: parts[3].trim(),
-                            isCalc: false,
-                            isWeb: false
+                            "name": displayName,
+                            "displayName": displayName,
+                            "comment": parts[1].trim(),
+                            "icon": parts[2].trim(),
+                            "exec": parts[3].trim(),
+                            "isCalc": false,
+                            "isWeb": false
                         });
                     }
                 }
                 updateFilter();
             }
         }
+
     }
 
     // Main UI layout
@@ -240,6 +244,7 @@ Item {
 
             ListView {
                 id: listView
+
                 model: filteredModel
                 spacing: 8
                 clip: true
@@ -252,10 +257,12 @@ Item {
 
                 // Delegate for each app / calculation / web search
                 delegate: Rectangle {
+                    property bool isSelected: listView.currentIndex === index
+
                     width: listView.width
                     height: 60
                     radius: Appearance.rounding.normal
-                    color: listView.currentIndex === index ? Appearance.m3colors.m3paddingContainer : "transparent"
+                    color: isSelected ? Appearance.m3colors.m3surfaceContainerHighest : "transparent"
 
                     Row {
                         anchors.fill: parent
@@ -296,6 +303,7 @@ Item {
                                 iconSize: 28
                                 color: Appearance.m3colors.m3onSurfaceVariant
                             }
+
                         }
 
                         // App / calculation / web search text
@@ -318,8 +326,11 @@ Item {
                                 elide: Text.ElideRight
                                 color: Appearance.m3colors.m3onSurfaceVariant
                             }
+
                         }
+
                     }
+
 
                     MouseArea {
                         anchors.fill: parent
@@ -329,13 +340,12 @@ Item {
                         onEntered: listView.currentIndex = index
                     }
 
-                    // Smooth color animation when selection changes
-                    Behavior on color {
-                        ColorAnimation { duration: 100 }
-                    }
                 }
+
             }
+
         }
+
     }
 
     // Fade animation when launcher opens/closes
@@ -345,5 +355,7 @@ Item {
             easing.type: Easing.BezierSpline
             easing.bezierCurve: Appearance.animation.curves.standard
         }
+
     }
+
 }
