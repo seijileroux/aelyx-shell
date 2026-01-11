@@ -6,16 +6,16 @@ QS_DIR="$HOME/.config/quickshell/nucleus-shell"
 REPO="xZepyx/nucleus-shell"
 API="https://api.github.com/repos/$REPO/releases"
 
-echo "
+cat <<'EOF'
  _   _           _       _   _
 | | | |_ __   __| | __ _| |_(_)_ __   __ _
 | | | | '_ \ / _` |/ _` | __| | '_ \ / _` |
 | |_| | |_) | (_| | (_| | |_| | | | | (_| |
  \___/| .__/ \__,_|\__,_|\__|_|_| |_|\__, |
       |_|                            |___/
-"
 
-echo
+EOF
+
 echo "Version to install:"
 echo "  1) Stable"
 echo "  2) Pre-release (indev)"
