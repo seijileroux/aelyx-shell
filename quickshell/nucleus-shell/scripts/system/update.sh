@@ -105,6 +105,7 @@ jq --arg v "$latest" '.shell.version = $v' "$CONFIG" > "$tmp_cfg"
 mv "$tmp_cfg" "$CONFIG"
 
 # Reload system
-nohup killall qs; qs -c nucleus-shell > /dev/null 2>&1 & disown
+killall qs 
+nohup qs -c nucleus-shell > /dev/null 2>&1 & disown
 
 echo "Updated $current -> $latest"
