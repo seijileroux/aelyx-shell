@@ -178,7 +178,7 @@ Scope {
                                         spacing: 8
 
                                         ClippingRectangle {
-                                            radius: 100
+                                            radius: Appearance.rounding.childish * 2
                                             color: "transparent"
                                             Layout.preferredWidth: 36
                                             Layout.preferredHeight: 42
@@ -241,7 +241,7 @@ Scope {
                                 Rectangle {
                                     anchors.fill: parent
                                     visible: !modelData.header
-                                    radius: 20
+                                    radius: Appearance.rounding.large
                                     color: selected ? Appearance.m3colors.m3primary : (hovered ? Appearance.m3colors.m3surfaceContainerHigh : Appearance.m3colors.m3surfaceContainerLow)
 
                                     RowLayout {

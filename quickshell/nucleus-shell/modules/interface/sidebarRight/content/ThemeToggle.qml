@@ -13,7 +13,7 @@ Rectangle {
 
     width: 200
     height: 80
-    radius: Appearance.rounding.verylarge + 20
+    radius: Appearance.rounding.childish
     color: Appearance.m3colors.m3paddingContainer
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
     Layout.margins: 0

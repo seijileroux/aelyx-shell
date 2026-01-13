@@ -91,10 +91,10 @@ PanelWindow {
 
         StyledRect {
             color: Appearance.m3colors.m3background
-            topLeftRadius: 30
-            topRightRadius: 30
-            bottomLeftRadius: searchField.text !== "" ? 0 : 30
-            bottomRightRadius: searchField.text !== "" ? 0 : 30
+            topLeftRadius: Appearance.rounding.verylarge
+            topRightRadius: Appearance.rounding.verylarge
+            bottomLeftRadius: searchField.text !== "" ? 0 : Appearance.rounding.verylarge
+            bottomRightRadius: searchField.text !== "" ? 0 : Appearance.rounding.verylarge
             implicitWidth: launcher.launcherWidth
             implicitHeight: 65
             anchors.top: parent.top
@@ -148,10 +148,10 @@ PanelWindow {
             readonly property real contentHeightClamped: Math.min(launcherContent.listView.contentHeight + 50, maxResultsHeight)
 
             color: Appearance.m3colors.m3background
-            topLeftRadius: searchField.text !== "" ? 0 : 30
-            topRightRadius: searchField.text !== "" ? 0 : 30
-            bottomLeftRadius: 30
-            bottomRightRadius: 30
+            topLeftRadius: searchField.text !== "" ? 0 : Appearance.rounding.verylarge
+            topRightRadius: searchField.text !== "" ? 0 : Appearance.rounding.verylarge
+            bottomLeftRadius: Appearance.rounding.verylarge 
+            bottomRightRadius: Appearance.rounding.verylarge
             opacity: searchField.text !== "" ? 1 : 0
             anchors.top: parent.top
             anchors.topMargin: 65

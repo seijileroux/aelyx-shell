@@ -22,7 +22,7 @@ Item {
         id: bgRect
 
         color: Appearance.m3colors.m3paddingContainer
-        radius: Config.runtime.bar.modules.radius
+        radius: Config.runtime.bar.modules.radius * Config.runtime.appearance.rounding.factor
         implicitWidth: isVertical ? row.implicitWidth + Appearance.margin.large - 10 : row.implicitWidth + Appearance.margin.large
         implicitHeight: Config.runtime.bar.modules.height
 

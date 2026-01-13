@@ -54,7 +54,7 @@ Scope {
 
             Rectangle {
                 anchors.fill: parent
-                radius: 50
+                radius: Appearance.rounding.childish
                 color: Appearance.m3colors.m3background
 
                 RowLayout {

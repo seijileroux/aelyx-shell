@@ -82,7 +82,7 @@ Item {
         anchors.fill: parent 
         height: 34 
         width: row.height + 30
-        radius: Config.runtime.bar.modules.radius
+        radius: Config.runtime.bar.modules.radius * Config.runtime.appearance.rounding.factor
     }
 
 

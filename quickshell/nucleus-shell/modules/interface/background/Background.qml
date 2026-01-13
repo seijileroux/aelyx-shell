@@ -176,7 +176,7 @@ Scope {
                                 text: "Set wallpaper"
                                 icon: "wallpaper"
                                 secondary: true
-                                radius: 22
+                                radius: Appearance.rounding.large
                                 Layout.alignment: Qt.AlignHCenter
                                 onClicked: wallpaperProc.running = true
                             }

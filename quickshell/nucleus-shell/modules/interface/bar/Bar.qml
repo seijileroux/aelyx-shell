@@ -20,7 +20,7 @@ Scope {
             id: bar
 
             required property var modelData
-            property int rd: Config.runtime.bar.radius
+            property int rd: Config.runtime.bar.radius * Config.runtime.appearance.rounding.factor // So it won't be modified when factor is 0
             property int margin: Config.runtime.bar.margins
             property bool floating: Config.runtime.bar.floating
             property bool merged: Config.runtime.bar.merged

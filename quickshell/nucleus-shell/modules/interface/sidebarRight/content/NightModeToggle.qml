@@ -11,7 +11,7 @@ Rectangle {
     property bool nightTime
     width: 200
     height: 80
-    radius: Appearance.rounding.verylarge + 20
+    radius: Appearance.rounding.childish
     color: !nightTime ? Appearance.m3colors.m3surfaceContainer : Appearance.m3colors.m3paddingContainer
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
     Layout.margins: 0

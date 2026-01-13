@@ -52,7 +52,7 @@ Scope {
                 anchors.right: parent.right
                 height: window.mask.height > 0 ? window.mask.height + 40 : 0
                 color: Appearance.m3colors.m3background
-                radius: 20
+                radius: Appearance.rounding.large
 
                 layer.effect: MultiEffect {
                     shadowEnabled: true

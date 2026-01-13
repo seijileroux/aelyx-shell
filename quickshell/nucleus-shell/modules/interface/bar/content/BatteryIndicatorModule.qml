@@ -19,7 +19,7 @@ Item {
     Rectangle {
         id: bgRect
         color: Appearance.m3colors.m3primary
-        radius: Config.runtime.bar.modules.radius
+        radius: Config.runtime.bar.modules.radius * Config.runtime.appearance.rounding.factor
 
         implicitWidth: child.implicitWidth + Appearance.margin.large - (isVertical ? 10 : 0)
         implicitHeight: Config.runtime.bar.modules.height

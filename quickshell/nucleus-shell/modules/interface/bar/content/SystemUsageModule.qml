@@ -17,7 +17,7 @@ Item {
         id: bgRect
 
         color: Appearance.m3colors.m3paddingContainer
-        radius: Config.runtime.bar.modules.radius
+        radius: Config.runtime.bar.modules.radius * Config.runtime.appearance.rounding.factor
         // Padding around the text
         implicitWidth: child.implicitWidth + Appearance.margin.large
         implicitHeight: Config.runtime.bar.modules.height

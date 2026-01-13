@@ -278,4 +278,20 @@ ContentMenu {
             }
         }
     }
+
+    ContentCard {
+        StyledText {
+            text: "Rounding"
+            font.pixelSize: 20
+            font.bold: true
+        }
+        NumberStepper {
+            label: "Factor"
+            description: "Adjust the rounding factor."
+            prefField: "appearance.rounding.factor"
+            minimum: 0
+            maximum: 1
+            step: 0.1
+        }
+    }
 }

@@ -155,7 +155,7 @@ PanelWindow {
         iconSize: 50
         width: powermenu.implicitWidth / 3.4
         height: powermenu.implicitHeight / 2.3
-        radius: beingHovered ? Appearance.rounding.verylarge + 40 : Appearance.rounding.verylarge
+        radius: beingHovered ? Appearance.rounding.verylarge * 2 : Appearance.rounding.verylarge
     }
 
 }

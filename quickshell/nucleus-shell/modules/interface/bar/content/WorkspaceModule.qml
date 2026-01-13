@@ -80,7 +80,7 @@ Item {
         id: bg
 
         color: Appearance.m3colors.m3paddingContainer
-        radius: Config.runtime.bar.modules.radius
+        radius: Config.runtime.bar.modules.radius * Config.runtime.appearance.rounding.factor
         implicitWidth: workspaceRow.implicitWidth + Appearance.margin.large - 8
         implicitHeight: Config.runtime.bar.modules.height
 
@@ -97,7 +97,7 @@ Item {
 
                 Rectangle {
                     height: 26
-                    radius: 14
+                    radius: Appearance.rounding.small
                     color: ColorUtils.mix(Appearance.m3colors.m3tertiary, Appearance.m3colors.m3surfaceContainerLowest)
                     opacity: 0.8
                     x: modelData.start * (26 + workspaceRow.spacing)
@@ -120,10 +120,10 @@ Item {
             property real animatedX2: targetX
 
             x: Math.min(animatedX1, animatedX2)
-            y: 5
+            anchors.verticalCenter: parent.verticalCenter
             width: Math.abs(animatedX2 - animatedX1) + itemWidth - 1
             height: 24
-            radius: 13
+            radius: Appearance.rounding.small
             color: Appearance.m3colors.m3tertiary
             onTargetXChanged: {
                 animatedX1 = targetX;
@@ -171,7 +171,7 @@ Item {
                         width: 20
                         height: 20
                         color: "transparent"
-                        radius: width / 2
+                        radius: Appearance.rounding.small
                         clip: true
 
                         IconImage {
@@ -198,12 +198,21 @@ Item {
 
                         // Compute text based on priority
                         property string displayText: {
+                            const square = "crop_square" // Make it square so it won't be inconsistent when rounding factor is 0
+                            const circle = "fiber_manual_record"
+                            const useSquare = Config.runtime.appearance.rounding.factor === 0
+
                             if (Config.runtime.bar.modules.workspaces.showAppIcons)
-                                return occupied ? "" : "fiber_manual_record";
-                            else if (Config.runtime.bar.modules.workspaces.showJapaneseNumbers)
-                                return (occupied || focused) ? japaneseNumber(index + 1) : "fiber_manual_record";
-                            else
-                                return (occupied || focused) ? "󰮯" : "fiber_manual_record";
+                                return occupied ? "" : (useSquare ? square : circle)
+
+                            if (Config.runtime.bar.modules.workspaces.showJapaneseNumbers)
+                                return (occupied || focused)
+                                    ? japaneseNumber(index + 1)
+                                    : (useSquare ? square : circle)
+
+                            return (occupied || focused)
+                                ? "󰮯"
+                                : (useSquare ? square : circle)
                         }
 
                         anchors.centerIn: parent
@@ -211,8 +220,8 @@ Item {
                         visible: true
                         rotation: (Config.runtime.bar.position === "left" || Config.runtime.bar.position === "right") ? 270 : 0
                         text: displayText
-                        font.pixelSize: (displayText === "fiber_manual_record") ? 10 : (Config.runtime.bar.modules.workspaces.showJapaneseNumbers ? Appearance.font.size.large - 2 : Appearance.font.size.large)
-                        fill: displayText === "fiber_manual_record" ? 1 : 0
+                        font.pixelSize: (displayText === "fiber_manual_record" || displayText === "crop_square") ? 10 : (Config.runtime.bar.modules.workspaces.showJapaneseNumbers ? Appearance.font.size.large - 2 : Appearance.font.size.large)
+                        fill: (displayText === "fiber_manual_record" || displayText === "crop_square")  ? 1 : 0
                         color: focused ? Appearance.m3colors.m3shadow : Appearance.m3colors.m3secondary
                     }
 

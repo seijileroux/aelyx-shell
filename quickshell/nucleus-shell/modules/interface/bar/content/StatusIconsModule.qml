@@ -19,7 +19,7 @@ Item {
         id: bgRect
 
         color: Appearance.m3colors.m3errorContainer
-        radius: Config.runtime.bar.modules.radius
+        radius: Config.runtime.bar.modules.radius * Config.runtime.appearance.rounding.factor
         implicitWidth: isVertical ? contentRow.implicitWidth + Appearance.margin.large - 8 : contentRow.implicitWidth + Appearance.margin.large
         implicitHeight: Config.runtime.bar.modules.height
 

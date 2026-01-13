@@ -14,7 +14,7 @@ Item {
 
     property int cardMargin: 20
     property int cardSpacing: 10
-    property int radius: 20
+    property int radius: Appearance.rounding.large
     property int verticalPadding: 40
 
     Rectangle {

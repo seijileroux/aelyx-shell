@@ -52,7 +52,7 @@ PanelWindow {
     StyledRect {
         id: container
         color: Appearance.m3colors.m3background
-        radius: Appearance.rounding.normal
+        radius: Appearance.rounding.large
         implicitWidth: sidebarRight.sidebarRightWidth
 
         anchors.fill: parent

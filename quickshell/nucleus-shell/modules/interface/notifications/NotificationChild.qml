@@ -29,7 +29,7 @@ Rectangle {
     }
 
     Layout.fillWidth: true
-    radius: 20
+    radius: Appearance.rounding.large
 
     property bool hovered: mouseHandler.containsMouse
     property bool clicked: mouseHandler.containsPress
@@ -51,7 +51,7 @@ Rectangle {
         ClippingRectangle {
             width: 50
             height: 50
-            radius: 20
+            radius: Appearance.rounding.large
             clip: true
             color: root.image === "" ? Appearance.m3colors.m3surfaceContainer : "transparent"
             Image {

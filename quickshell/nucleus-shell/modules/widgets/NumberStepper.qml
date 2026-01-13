@@ -9,11 +9,12 @@ RowLayout {
     property string label: ""
     property string description: ""
     property string prefField: ""
-    property int step: 1
-    property int minimum: -2.14748e+09
-    property int maximum: 2.14748e+09
-    // Exposed current value property (updates via binding)
-    property int value: readValue()
+    property double step: 1.0
+    property double minimum: -2.14748e+09 // Largest num I could find and type ig
+    property double maximum: 2.14748e+09
+
+    // Floating-point value
+    property double value: readValue()
 
     function readValue() {
         if (!prefField)
@@ -21,25 +22,23 @@ RowLayout {
 
         var parts = prefField.split('.');
         var cur = Config.runtime;
+
         for (var i = 0; i < parts.length; ++i) {
             if (cur === undefined || cur === null)
                 return 0;
-
             cur = cur[parts[i]];
         }
-        if (typeof cur === "number")
-            return cur;
 
         var n = Number(cur);
         return isNaN(n) ? 0 : n;
     }
 
-    // Write value (uses Config.updateKey which will create missing keys)
     function writeValue(v) {
         if (!prefField)
-            return ;
+            return;
 
-        var nv = Math.max(minimum, Math.min(maximum, Math.round(v)));
+        var nv = Math.max(minimum, Math.min(maximum, v));
+        nv = Number(nv.toFixed(2)); // precision control (adjust if needed)
         Config.updateKey(prefField, nv);
     }
 
@@ -58,7 +57,6 @@ RowLayout {
             text: root.description
             font.pixelSize: 10
         }
-
     }
 
     Item { Layout.fillWidth: true }
@@ -69,13 +67,11 @@ RowLayout {
         StyledButton {
             text: "-"
             implicitWidth: 36
-            onClicked: {
-                writeValue(readValue() - step);
-            }
+            onClicked: writeValue(readValue() - step)
         }
 
         StyledText {
-            text: "" + readValue()
+            text: value.toFixed(2)
             font.pixelSize: 14
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -86,11 +82,7 @@ RowLayout {
         StyledButton {
             text: "+"
             implicitWidth: 36
-            onClicked: {
-                writeValue(readValue() + step);
-            }
+            onClicked: writeValue(readValue() + step)
         }
-
     }
-
 }

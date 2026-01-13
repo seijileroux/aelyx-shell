@@ -134,7 +134,7 @@ Rectangle {
             StyledButton {
                 icon: "chevron_right"
                 padding: 10
-                radius: 6
+                radius: Appearance.rounding.unsharpenmore
                 // don't steal focus from the text box
                 focusPolicy: Qt.NoFocus
                 enabled: !root.context.unlockInProgress && root.context.currentText !== ""

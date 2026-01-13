@@ -48,7 +48,7 @@ ContentMenu {
             Layout.alignment: Qt.AlignHCenter
             width: root.screen.width / 2
             height: width * root.screen.height / root.screen.width
-            radius: 10
+            radius: Appearance.rounding.unsharpenmore
             color: Appearance.m3colors.m3surfaceContainer
 
             StyledText {
@@ -62,7 +62,7 @@ ContentMenu {
 
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignCenter
                 anchors.fill: parent
-                radius: 12
+                radius: Appearance.rounding.unsharpenmore
                 color: Appearance.m3colors.m3paddingContainer
                 layer.enabled: true
 

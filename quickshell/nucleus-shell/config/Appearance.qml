@@ -214,17 +214,17 @@ Singleton {
     }
 
     rounding: QtObject {
-        property int unsharpen: 2
-        property int unsharpenmore: 6
-        property int verysmall: 8
-        property int small: 12
-        property int normal: 17
-        property int large: 23
-        property int verylarge: 30
-        property int childish: 50
+        property int unsharpen: 2 * Config.runtime.appearance.rounding.factor
+        property int unsharpenmore: 6 * Config.runtime.appearance.rounding.factor
+        property int verysmall: 8 * Config.runtime.appearance.rounding.factor
+        property int small: 12 * Config.runtime.appearance.rounding.factor
+        property int normal: 17 * Config.runtime.appearance.rounding.factor
+        property int large: 23 * Config.runtime.appearance.rounding.factor
+        property int verylarge: 30 * Config.runtime.appearance.rounding.factor
+        property int childish: 50 * Config.runtime.appearance.rounding.factor // Idk why did I named this childish
         property int full: 9999
         property int screenRounding: large
-        property int windowRounding: 18
+        property int windowRounding: 18 * Config.runtime.appearance.rounding.factor
     }
 
     font: QtObject {

@@ -20,7 +20,7 @@ Item {
         id: bgRect
 
         color: isVertical ? "transparent" : Appearance.m3colors.m3paddingContainer
-        radius: Config.runtime.bar.modules.radius
+        radius: Config.runtime.bar.modules.radius * Config.runtime.appearance.rounding.factor
         // Padding around the text
         implicitWidth: isVertical ? textItem.implicitWidth + 40 : textItem.implicitWidth + Appearance.margin.large
         implicitHeight: Config.runtime.bar.modules.height

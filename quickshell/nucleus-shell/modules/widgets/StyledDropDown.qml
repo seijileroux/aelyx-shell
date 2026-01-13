@@ -24,7 +24,7 @@ Item {
         color: "transparent"
         border.color: dropdown.activeFocus ? Appearance.m3colors.m3primary : Appearance.m3colors.m3outline
         border.width: dropdown.activeFocus ? 2 : 1
-        radius: 4
+        radius: Appearance.rounding.unsharpen
 
         Behavior on border.color {
             ColorAnimation { duration: Appearance.animation.durations.small; easing.type: Easing.InOutCubic }

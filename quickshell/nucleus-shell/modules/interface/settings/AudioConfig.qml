@@ -22,7 +22,7 @@ ContentMenu {
                 Rectangle {
                     Layout.preferredWidth: 40
                     Layout.preferredHeight: 40
-                    radius: 20
+                    radius: Appearance.rounding.large
                     color: Appearance.m3colors.m3primaryContainer
 
                     MaterialSymbol {
@@ -135,7 +135,7 @@ ContentMenu {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 56
-                radius: 12
+                radius: Appearance.rounding.small
                 color: Appearance.m3colors.m3surfaceContainerHigh
 
                 RowLayout {
@@ -178,7 +178,7 @@ ContentMenu {
                 Rectangle {
                     Layout.preferredWidth: 40
                     Layout.preferredHeight: 40
-                    radius: 20
+                    radius: Appearance.rounding.large
                     color: Appearance.m3colors.m3secondaryContainer
 
                     MaterialSymbol {
@@ -213,7 +213,7 @@ ContentMenu {
                 visible: Volume.sources.length === 0
                 Layout.fillWidth: true
                 Layout.preferredHeight: 120
-                radius: 12
+                radius: Appearance.rounding.small
                 color: Appearance.m3colors.m3surfaceContainerHigh
 
                 ColumnLayout {
@@ -322,7 +322,7 @@ ContentMenu {
                 visible: Volume.sources.length > 0
                 Layout.fillWidth: true
                 Layout.preferredHeight: 56
-                radius: 12
+                radius: Appearance.rounding.small
                 color: Appearance.m3colors.m3surfaceContainerHigh
 
                 RowLayout {

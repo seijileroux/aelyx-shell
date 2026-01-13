@@ -54,16 +54,16 @@ Item {
                     icon: 'code'
                     secondary: true
                     onClicked: Qt.openUrlExternally("https://github.com/xZepyx/nucleus-shell")
-                    topRightRadius: 5
-                    bottomRightRadius: 5
+                    topRightRadius: Appearance.rounding.small
+                    bottomRightRadius: Appearance.rounding.small
                 }
                 StyledButton {
                     text: "Report Issue"
                     icon: "bug_report"
                     secondary: true
                     onClicked: Qt.openUrlExternally("https://github.com/xZepyx/nucleus-shell/issues")
-                    topLeftRadius: 5
-                    bottomLeftRadius: 5
+                    topLeftRadius: Appearance.rounding.small
+                    bottomLeftRadius: Appearance.rounding.small
                 }
 
             }
@@ -77,7 +77,7 @@ Item {
         anchors.margins: 40
         implicitHeight: updateText.height + 20
         implicitWidth: implicitHeight
-        radius: 10
+        radius: Appearance.rounding.small
         StyledText {
             id: updateText
             text: "󰚰" // These come in handy sometimes
