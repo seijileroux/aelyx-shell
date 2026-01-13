@@ -131,6 +131,12 @@ ContentMenu {
             prefField: "appearance.background.slideshow.enabled"
         }
 
+        StyledSwitchOption {
+            title: "Include Subfolders"
+            description: "Also search for wallpapers in subfolders."
+            prefField: "appearance.background.slideshow.includeSubfolders"
+        }
+
         // Folder selection
         ColumnLayout {
             Layout.fillWidth: true
@@ -167,62 +173,6 @@ ContentMenu {
 
             }
 
-            // Wallpaper count info
-            StyledText {
-                visible: WallpaperSlideshow.wallpapers.length > 0
-                text: WallpaperSlideshow.wallpapers.length + " wallpapers found"
-                font.pixelSize: 12
-                color: Appearance.m3colors.m3primary
-            }
-
-            StyledText {
-                visible: WallpaperSlideshow.scanning
-                text: "Scanning folder..."
-                font.pixelSize: 12
-                color: Appearance.m3colors.m3onSurfaceVariant
-            }
-
-        }
-
-        // Interval selector
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 12
-
-            ColumnLayout {
-                Layout.fillWidth: true
-                spacing: 4
-
-                StyledText {
-                    text: "Change Interval"
-                    font.pixelSize: 16
-                }
-
-                StyledText {
-                    text: "How often to change the wallpaper."
-                    font.pixelSize: 12
-                    color: Appearance.m3colors.m3onSurfaceVariant
-                }
-
-            }
-
-            StyledDropDown {
-                label: "Interval"
-                model: intervalOptions.map((opt) => {
-                    return opt.label;
-                })
-                currentIndex: getIntervalIndex(Config.runtime.appearance.background.slideshow.interval)
-                onSelectedIndexChanged: (index) => {
-                    Config.updateKey("appearance.background.slideshow.interval", intervalOptions[index].value);
-                }
-            }
-
-        }
-
-        StyledSwitchOption {
-            title: "Include Subfolders"
-            description: "Also search for wallpapers in subfolders."
-            prefField: "appearance.background.slideshow.includeSubfolders"
         }
 
         RowLayout {
@@ -251,13 +201,50 @@ ContentMenu {
 
             StyledButton {
                 icon: "skip_next"
-                text: "Next Wallpaper"
+                text: "Skip Next"
                 enabled: WallpaperSlideshow.wallpapers.length > 0
                 onClicked: {
-                    // This bool is only used at some places not everywhere so user gets notified
-                    // But also won't get spammed
                     Quickshell.execDetached(["qs", "-c", "nucleus-shell", "ipc", "call", "background", "next"]);
+                }
+            }
 
+        }
+
+        // Interval selector
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 12
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                spacing: 4
+
+                StyledText {
+                    text: "Change Interval"
+                    font.pixelSize: 16
+                }
+
+                StyledText {
+                    text: "How often to change the wallpaper."
+                    font.pixelSize: 12
+                    color: Appearance.m3colors.m3onSurfaceVariant
+                }
+
+            }
+
+            // Spacer
+            Item {
+                Layout.fillWidth: true
+            }
+
+            StyledDropDown {
+                label: "Interval"
+                model: intervalOptions.map((opt) => {
+                    return opt.label;
+                })
+                currentIndex: getIntervalIndex(Config.runtime.appearance.background.slideshow.interval)
+                onSelectedIndexChanged: (index) => {
+                    Config.updateKey("appearance.background.slideshow.interval", intervalOptions[index].value);
                 }
             }
 
