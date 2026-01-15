@@ -84,7 +84,8 @@ fi
 if [[ "$DISTRO" == "arch" ]]; then
     packages=(
         hyprland hyprpaper hyprlock hyprpicker
-        wf-recorder grim slurp
+        wf-recorder grim slurp kvantum-qt5
+	qt6ct qt5ct kvantum
         kitty fish starship
         firefox nautilus
         networkmanager wireplumber bluez-utils
@@ -104,7 +105,8 @@ else
     packages=(
         hyprland hyprpaper hyprlock hyprpicker
         wf-recorder grim slurp
-        kitty fish starship
+        kitty fish starship kvantum-qt5
+	qt5ct qt6ct kvantum
         firefox nautilus
         NetworkManager wireplumber bluez
         fastfetch playerctl brightnessctl
