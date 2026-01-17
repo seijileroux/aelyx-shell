@@ -113,13 +113,16 @@ Singleton {
                     property url path: Directories.defaultsPath + "/default.jpg"
                     property JsonObject clock: JsonObject {
                         property bool enabled: true 
+                        property bool isAnalog: true
+                        property int edgeSpacing: 50
+                        property int shape: 1 // 1 = Cookie 7 Sided, 2 = Cookie 9 Sided, 3 = Cookie 12 Sided, 4 = Pixelated Circle
                         property string position: "bottom-left" // top-left, top-right, bottom-right, bottom-left
                     }
                     property JsonObject slideshow: JsonObject {
                         property bool enabled: false
-                        property string folder: ""
-                        property int interval: 5 // minutes
                         property bool includeSubfolders: true
+                        property int interval: 5 // minutes
+                        property string folder: ""
                     }
                 }
             }

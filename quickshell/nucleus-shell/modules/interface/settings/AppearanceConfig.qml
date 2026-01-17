@@ -236,10 +236,10 @@ ContentMenu {
             prefField: "appearance.background.clock.enabled"
         }
 
-        StyledText {
-            text: "Clock Position"
-            font.pixelSize: 16
-            font.bold: true
+        StyledSwitchOption {
+            title: "Analog Variant"
+            description: "Whether to use analog clock or not."
+            prefField: "appearance.background.clock.isAnalog"
         }
 
         RowLayout {
@@ -277,6 +277,39 @@ ContentMenu {
                     Config.updateKey(
                         "appearance.background.clock.position",
                         model[index].toLowerCase().replace(" ", "-")
+                    )
+                }
+            }
+        }
+
+        RowLayout {
+            id: shapeSelector
+
+            ColumnLayout {
+                StyledText {
+                    text: "Analog Clock Shape"
+                    font.pixelSize: 16
+                }
+
+                StyledText {
+                    text: "Choose the analog clock's shape."
+                    font.pixelSize: 12
+                }
+            }
+
+            Item { Layout.fillWidth: true }
+
+
+            StyledDropDown {
+                label: "Shape Type"
+                model: ["Cookie 7 Sided", "Cookie 9 Sided", "Cookie 12 Sided", "Pixelated Circle"]
+
+                currentIndex: Config.runtime.appearance.background.clock.shape
+
+                onSelectedIndexChanged: (index) => {
+                    Config.updateKey(
+                        "appearance.background.clock.shape",
+                        index
                     )
                 }
             }
