@@ -9,12 +9,11 @@ Item {
 
     property var pluginNames: []
 
-    Timer {
-        interval: 2000
-        running: true
-        repeat: true
-        onTriggered: listPluginsProc.running = true
+    function reload() {
+        listPluginsProc.running = true
     }
+
+    Component.onCompleted: reload()
 
     Process {
         id: listPluginsProc

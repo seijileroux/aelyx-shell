@@ -83,16 +83,20 @@ Scope {
                 "label": "Plugins",
                 "page": 8
             }, {
+                "icon": "apps",
+                "label": "Store",
+                "page": 9
+            }, {
                 "icon": "build",
                 "label": "Miscellaneous",
-                "page": 9
+                "page": 10
             }, {
                 "header": true,
                 "label": "About"
             }, {
                 "icon": "info",
                 "label": "About",
-                "page": 10
+                "page": 11
             }]
 
             width: 1280
@@ -348,6 +352,9 @@ Scope {
                     }
 
                     Plugins { // Different name for clarity between plugins/PluginConfig.qml
+                    }
+
+                    Store {
                     }
 
                     MiscConfig {

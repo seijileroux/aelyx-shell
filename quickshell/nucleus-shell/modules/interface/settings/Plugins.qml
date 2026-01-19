@@ -10,8 +10,23 @@ ContentMenu {
     description: "Modify and Customize Installed Plugins."
 
     ContentCard {
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 12
 
-        PluginSettings {}
+            StyledText {
+                font.bold: true
+                font.pixelSize: 20
+                text: "Plugins not found!"
+                visible: PluginLoader.pluginNames.length === 0
+                Layout.alignment: Qt.AlignCenter
+            }
+
+            PluginSettings {
+                Layout.fillWidth: true
+            }
+
+        }
 
     }
 

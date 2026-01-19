@@ -1,14 +1,20 @@
 import QtQuick
 import QtQuick.Layouts
-// PluginSettings.qml
 import qs.config
 
-Repeater {
-    model: PluginLoader.pluginNames
+ColumnLayout {
+    Layout.fillWidth: true
+    spacing: 8
 
-    delegate: Loader {
-        source: Qt.resolvedUrl(Directories.shellConfig + "/plugins/" + modelData + "/Settings.qml")
-        asynchronous: true
+    Repeater {
+        model: PluginLoader.pluginNames
+
+        delegate: Loader {
+            Layout.fillWidth: true
+            asynchronous: true
+            source: Qt.resolvedUrl(
+                Directories.shellConfig + "/plugins/" + modelData + "/Settings.qml"
+            )
+        }
     }
-
 }
