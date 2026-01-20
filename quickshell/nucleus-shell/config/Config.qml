@@ -50,11 +50,11 @@ Singleton {
         configFileView.adapterUpdated()
     }
 
-    function loadPluginConfigs(pluginNames) {
-        console.log("Loading plugins:", pluginNames)
+    function loadPluginConfigs(plugins) {
+        console.log("Loading plugins:", plugins)
         
-        for (let i = 0; i < pluginNames.length; i++) {
-            const name = pluginNames[i]
+        for (let i = 0; i < plugins.length; i++) {
+            const name = plugins[i]
             const path = Directories.shellConfig + "/plugins/" + name + "/PluginConfigData.qml"
 
             const component = Qt.createComponent(path)
@@ -91,7 +91,7 @@ Singleton {
         repeat: false
         onTriggered: {
             console.log("Plugin timer triggered")
-            root.loadPluginConfigs(PluginLoader.pluginNames)
+            root.loadPluginConfigs(PluginLoader.plugins)
         }
     }
 

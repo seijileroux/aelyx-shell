@@ -12,84 +12,101 @@ ContentMenu {
     description: "Manage plugins and other stuff for the shell."
 
     ContentCard {
-        Repeater {
-            model: PluginParser.model
+        GridLayout {
+            columns: PluginLoader.plugins.length === 1 ? 1 : 2
+            columnSpacing: 16
+            rowSpacing: 16
+            anchors.fill: parent
 
-            delegate: StyledRect {
-                width: parent.width
-                height: 96
-                radius: 10
-                color: Appearance.m3colors.m3surfaceContainer
+            Repeater {
+                model: PluginParser.model
 
-                Row {
-                    spacing: 8
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.right
-                    anchors.margins: 12
+                delegate: StyledRect {
+                    Layout.preferredWidth: parent.width / 2.4
+                    Layout.preferredHeight: 500
+                    radius: 10
+                    color: Appearance.m3colors.m3surfaceContainer
 
-                    StyledButton {
-                        text: "Install"
-                        visible: !installed
-                        onClicked: PluginParser.install(id)
-                        secondary: true
-                    }
+                    ColumnLayout {
+                        anchors.fill: parent
+                        anchors.margins: 16
+                        spacing: 6
 
-                    StyledButton {
-                        text: "Update"
-                        visible: installed
-                        onClicked: PluginParser.update(id)
-                        secondary: true
-                    }
+                        ClippingRectangle {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 300
+                            radius: Appearance.rounding.small
 
-                    StyledButton {
-                        text: "Remove"
-                        visible: installed
-                        onClicked: PluginParser.uninstall(id)
-                        secondary: true
-                    }
+                            Image {
+                                anchors.fill: parent
+                                source: img !== "none" ? img : "image://icon/plugin"
+                            }
 
-                }
-
-                Row {
-                    anchors.fill: parent
-                    anchors.margins: 12
-                    spacing: 12
-
-                    ClippingRectangle {
-                        radius: Appearance.rounding.small
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 170
-                        height: 80
-
-                        Image {
-                            anchors.fill: parent
-                            fillMode: Image.PreserveAspectCrop
-                            source: img !== "none" ? img : "image://icon/plugin"
                         }
-
-                    }
-
-                    Column {
-                        spacing: 4
-                        width: parent.width - 220
 
                         StyledText {
                             text: name
-                            font.pixelSize: 16
+                            font.pixelSize: 20
                             elide: Text.ElideRight
+                            font.bold: true
+                            Layout.fillWidth: true
+                            Layout.topMargin: 12
+                            Layout.rightMargin: 8
                         }
 
                         StyledText {
                             text: description
-                            font.pixelSize: 12
+                            font.pixelSize: 16
                             color: Appearance.colors.colSubtext
                             elide: Text.ElideRight
+                            Layout.fillWidth: true
+                            Layout.rightMargin: 8
                         }
 
                         StyledText {
                             text: "v" + version + " • " + author
-                            font.pixelSize: 11
+                            font.pixelSize: 12
                             color: Appearance.colors.colSubtext
+                            Layout.rightMargin: 8
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                        RowLayout {
+                            spacing: 8
+                            Layout.topMargin: 12
+                            Layout.bottomMargin: 12
+                            Layout.alignment: Qt.AlignBottom
+
+                            StyledButton {
+                                icon: "download"
+                                text: "Install"
+                                visible: !installed
+                                secondary: true
+                                onClicked: PluginParser.install(id)
+                                Layout.preferredWidth: 160
+                            }
+
+                            StyledButton {
+                                icon: "update"
+                                text: "Update"
+                                visible: installed
+                                secondary: true
+                                onClicked: PluginParser.update(id)
+                                Layout.preferredWidth: 160
+                            }
+
+                            StyledButton {
+                                icon: "delete"
+                                text: "Remove"
+                                visible: installed
+                                secondary: true
+                                onClicked: PluginParser.uninstall(id)
+                                Layout.preferredWidth: 160
+                            }
+
                         }
 
                     }

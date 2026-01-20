@@ -7,7 +7,7 @@ import qs.config
 Item {
     id: root
 
-    property var pluginNames: []
+    property var plugins: []
 
     function reload() {
         listPluginsProc.running = true
@@ -24,7 +24,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 const names = text.split("\n").filter(s => s.trim() !== "")
-                root.pluginNames = names
+                root.plugins = names
             }
         }
 

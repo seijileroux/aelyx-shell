@@ -4,7 +4,7 @@ import qs.config
 
 Item {
     Repeater {
-        model: PluginLoader.pluginNames
+        model: PluginLoader.plugins
 
         delegate: Item {
             width: 0
