@@ -150,7 +150,7 @@ Singleton {
                 property string position: "center"
             }
             property JsonObject shell: JsonObject {
-                property string version: "0.2.0"
+                property string version: "0.4.1"
                 property string releaseChannel: "stable"
             }
             property JsonObject overlays: JsonObject {
