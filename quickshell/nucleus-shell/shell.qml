@@ -22,57 +22,53 @@ ShellRoot {
     LazyLoader {
         id: barLoader
         source: Contracts.bar
-        active: Config.runtime.bar.enabled
+        active: Config.runtime.bar.enabled && !Contracts.overriddenBar
     }
 
     LazyLoader {
         id: backgroundLoader
         source: Contracts.background
-        active: Config.runtime.appearance.background.enabled
+        active: Config.runtime.appearance.background.enabled && !Contracts.overriddenBackground
     }
 
     LazyLoader {
         id: powerMenuLoader
         source: Contracts.powerMenu
-        active: Globals.visiblility.powermenu
+        active: Globals.visiblility.powermenu && !Contracts.overriddenPowerMenu
     }
 
     LazyLoader {
         id: launcherLoader
         source: Contracts.launcher
-        active: true
+        active: true && !Contracts.overriddenLauncher
     }
 
     LazyLoader {
         id: notificationsLoader
         source: Contracts.notifications
-        active: Config.runtime.notifications.enabled
+        active: Config.runtime.notifications.enabled && !Contracts.overriddenNotifications
     }
 
     LazyLoader {
         id: overlaysLoader
         source: Contracts.overlays
-        active: Config.runtime.overlays.enabled
+        active: Config.runtime.overlays.enabled && !Contracts.overriddenOverlays
     }
 
     LazyLoader {
         id: sidebarRightLoader
         source: Contracts.sidebarRight
-        active: Globals.visiblility.sidebarRight
+        active: Globals.visiblility.sidebarRight && !Contracts.overriddenSidebarRight
     }
 
     LazyLoader {
         id: lockScreenLoader
         source: Contracts.lockScreen
-        active: true
+        active: true && !Contracts.overriddenLockScreen
     }
 
     Settings { }
-
     Ipc { }
-
     UpdateNotifier { }
-
     PluginHost { }
-
 }
