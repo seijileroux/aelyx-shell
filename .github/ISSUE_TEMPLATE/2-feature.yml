@@ -1,10 +1,10 @@
 name: Feature request
-description: Suggest an idea for aelyx-shell
+description: Suggest an idea for nucleus-shell
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
-      value: "NOTE:\n- Please search in [existing issues](https://github.com/xZepyx/aelyx-shell/issues?q=is%3Aissue) before proceeding.\n- Please write in **English**."
+      value: "NOTE:\n- Please search in [existing issues](https://github.com/xZepyx/nucleus-shell/issues?q=is%3Aissue) before proceeding.\n- Please write in **English**."
 
   - type: textarea
     attributes:
