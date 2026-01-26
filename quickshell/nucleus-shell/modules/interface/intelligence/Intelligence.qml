@@ -173,7 +173,6 @@ Scope {
                         StyledButton {
                             icon: "expand_more"
                             Layout.preferredWidth: 40
-                            enabled: Globals.states.intelligenceWindowOpen
                             onClicked: {
                                 Globals.states.intelligenceWindowOpen = false;
                                 Globals.visiblility.sidebarLeft = true;

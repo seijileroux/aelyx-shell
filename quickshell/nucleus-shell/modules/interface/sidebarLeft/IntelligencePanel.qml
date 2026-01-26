@@ -160,7 +160,6 @@ Item {
                 StyledButton {
                     icon: "fullscreen"
                     Layout.preferredWidth: 40
-                    enabled: !Globals.states.intelligenceWindowOpen
                     onClicked: {
                         Globals.states.intelligenceWindowOpen = true;
                         Globals.visiblility.sidebarLeft = false;
