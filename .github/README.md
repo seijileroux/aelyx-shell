@@ -31,6 +31,9 @@ Key goals:
   Only open an issue if the problem is still reproducible on the latest source.
 > * Head over to the [colorschemes](https://github.com/xZepyx/nucleus-colorschemes) repo to get some custom themes for nucleus-shell
 > * Also have a look at the [plugins](https://github.com/xZepyx/nucleus-plugins) repo to get some plugins for nucleus-shell
+
+> [!CAUTION]
+> Using llms inside the shell requires installing and setting up [zenith](https://github.com/xZepyx/zenith) into `/usr/bin` or `~/.local/bin`.
 ---
 
 <h2 align="center">✦ Previews ✦</h2>
