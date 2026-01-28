@@ -236,6 +236,7 @@ Scope {
                         font.pixelSize: 80
                         font.bold: true
                         opacity: 0.3
+                        animate: false
                     }
 
                     StyledText {
@@ -246,6 +247,7 @@ Scope {
                         font.pixelSize: 80
                         font.bold: true
                         opacity: 0.3
+                        animate: false
                     }
 
                     IpcHandler {
