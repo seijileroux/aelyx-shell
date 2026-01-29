@@ -101,7 +101,10 @@ Scope {
                     anchors.fill: parent
                     drag.target: rootContentContainer
                     drag.axis: Drag.XAndYAxis
+                    acceptedButtons: Qt.RightButton
                     onReleased: {
+                        if (ma.button === Qt.RightButton)
+                            return
                         Config.updateKey("appearance.background.clock.xPos", rootContentContainer.x);
                         Config.updateKey("appearance.background.clock.yPos", rootContentContainer.y);
                     }
